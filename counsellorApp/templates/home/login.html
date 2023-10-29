@@ -1,0 +1,181 @@
+{% comment %} <html>
+
+<head>
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <style>
+    .text-center {
+      background-color: #C0C0C0;
+      border-radius: 10px;
+    }
+   
+  </style>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+</head>
+
+<body style="background-color:#151B54;margin-top:10px;">
+
+  <section class="vh-100">
+    <h1 style="color: white; text-align: center;padding-top: 50px;padding-bottom: 0px;margin-bottom: -50px;"></h1>
+    <div class="container py-20 h-70">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card shadow-2-strong" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
+
+              <h3 class="mb-4">Login</h3>
+
+              <form action="" method="post">
+                {% csrf_token %}
+                <div class="form-outline mb-4">
+                  <input type="text" id="typeEmailX-2" name="username" class="form-control form-control-lg"
+                    placeholder="Username" />
+
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="password" id="typePasswordX-2" name="password" class="form-control form-control-lg"
+                    placeholder="Password" />
+
+                </div>
+
+                <!-- Checkbox -->
+                <div class="form-check d-flex justify-content-start mb-4">
+                  <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
+                  <label class="form-check-label" for="form1Example3"> &nbsp; Remember password </label>
+                </div>
+                <input class="btn btn-primary btn-lg btn-block" style="background-color: #151B54;" type="submit"
+                  value="Login"></input>
+              </form>
+
+              <br>
+              <br>
+
+              {% for message in messages %}
+              <p style="color:black">{{message}}</p>
+              {% endfor %}
+              <p>Don't have an account?</p>
+              <a href="{% url 'signup' %}" type="submit">Sign
+                up</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="js/bootstrap.js"></script>
+</body>
+
+</html> {% endcomment %}
+
+
+<html>
+
+<head>
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+  <!-- MDB -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- Section: Design Block -->
+  
+  <section class="">
+    <div class="container-fluid">
+    <!-- Jumbotron -->
+      <div class="px-8 py-18 px-md-5 text-center text-lg-start" style="background-color: #000">
+        <div style="margin-top:-115px;" class="container">
+          <div class="row gx-lg-5 align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+              <h1 class="my-5 display-3 fw-bold ls-tight">
+                <br />
+                <span class="text-primary"></span>
+              </h1>
+              <img width="90%" height="90%" src="static\images\slider\login.png" class="img-fluid" alt="Responsive Image">
+                
+              </p>
+            </div>
+
+            <div class="col-lg-6 mb-7 mb-lg-0">
+              
+              <div style="margin-top:140px;" class="card">
+                <div class="card-body py-9 px-md-5">
+
+                  <form action="" method="post">
+                    {% csrf_token %}
+                    <h3 class="my-3 display-4 fw-bold ls-tight text-lg">
+                      <span style="font-size: 35px;" class="text-primary">Login</span>
+                    </h3>
+                    <!-- 2 column grid layout with text inputs for the first and last names -->
+                    <div class="row">
+                      <div class="col-md-12 mb-4">
+                        <div class="form-outline">
+                          <input type="text" id="typeEmailX-2" name="username" class="form-control" />
+                          <label class="form-label" for="typeEmailX-2">User Name</label>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                      <input type="password" id="typePasswordX-2" name="password" class="form-control" />
+                      <label class="form-label" for="typePasswordX-2">Password</label>
+                    </div>
+
+
+
+                    <!-- Checkbox -->
+                    <div class="form-check d-flex justify-content-center mb-4">
+                      <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
+                      <label class="form-check-label" for="form2Example33">
+                        Remember me
+                      </label>
+                    </div>
+
+                    <!-- Submit button -->
+                    <!-- <button type="submit" class="btn btn-primary btn-block mb-4">
+                      Sign up
+                    </button> -->
+                    <input class="btn btn-primary btn-block mb-4" type="submit" value="Login"></input>
+
+                    <!-- Register buttons -->
+                    <div class="text-center">
+                      
+                    </div>
+                  </form>
+
+                  <div class="text-center">
+                    {% for message in messages %}
+                    <p style="color:black">{{message}}</p>
+                    {% endfor %}
+                    <p>Don't have an account?</p>
+                    <a href="{% url 'signup' %}" type="submit">Sign
+                      up</a>
+                  </div>
+                </div>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+    <!-- Jumbotron -->
+  </section>
+
+  <!-- Section: Design Block -->
+
+
+  <!-- MDB -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js">
+  </script>
+</body>
+
+</html>

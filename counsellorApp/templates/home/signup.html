@@ -1,0 +1,242 @@
+
+{% comment %} <html>
+
+<head>
+   
+    <style>
+        .text-center{
+        background-color: #C0C0C0;
+        border-radius: 10px;
+    }
+       </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+</head>
+
+<body style="background-color:#151B54;">
+  <section class="vh-100">
+    <h1 style="color: white; text-align: center;padding-top: 50px;padding-bottom: 0px;margin-bottom: -50px;">BlackAnt for KPR</h1>
+
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card shadow-2-strong" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
+
+
+              <h3 class="mb-5">Sign up</h3>
+
+
+              <form action="" method="post">
+                {% csrf_token %}
+                <div class="form-outline mb-4">
+                  {{form.username}}
+                </div>
+
+                <div class="form-outline mb-4">
+                  {{form.email}}
+
+                </div>
+
+                <div class="form-outline mb-4">
+                  {{form.password1}}
+
+                </div>
+                <div class="form-outline mb-4">
+                  {{form.password2}}
+                </div>
+
+                <div class="form-check d-flex justify-content-start mb-4">
+                  <input type="checkbox" name="" id="form1Example3">
+                  <label class="form-check-label" for="form1Example3"> &nbsp; Remember password </label>
+
+                </div>
+
+                <input class="btn btn-primary btn-lg btn-block" style="background-color:#151B54;"
+                  type="submit"></input>
+              </form>
+
+              <br>
+              <br>
+
+              {% for message in messages %}
+              <p style="color:black">{{message}}</p>
+              {% endfor %}
+              <p>Already have an account?</p>
+              <a href="{% url 'login' %}">Login</a>
+
+            </div>
+
+
+            {{form.errors}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    var form_fields = document.getElementsByTagName('input')
+    form_fields[0].className += " form-control"
+    form_fields[1].className += " form-control"
+    form_fields[2].className += " form-control"
+    form_fields[3].className += " form-control"
+    form_fields[4].className += " form-control"
+    form_fields[5].className += " form-check-input"
+
+    form_fields[1].placeholder = "Enter your name "
+    form_fields[2].placeholder = "Enter email"
+    form_fields[3].placeholder = "Enter password"
+    form_fields[4].placeholder = "Re-enter password"
+    // console.log(form_fields);
+  </script>
+   
+</body>
+
+</html> {% endcomment %}
+
+<html>
+    <head>
+        <!-- Font Awesome -->
+        <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        rel="stylesheet"
+        />
+        <!-- Google Fonts -->
+        <link
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+        rel="stylesheet"
+        />
+        <!-- MDB -->
+        <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css"
+        rel="stylesheet"
+        />
+    </head>
+
+    <body >
+        <!-- Section: Design Block -->
+<section class="">
+    <!-- Jumbotron -->
+    <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: #000">
+      <div style="margin-top:-125px;margin-bottom:-20px;" class="container">
+        <div class="row gx-lg-5 align-items-center">
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <h1 class="my-5 display-3 fw-bold ls-tight">
+              <br />
+              <span class="text-primary"></span>
+            </h1>
+             
+            <img width="90%" height="90%" src="static\images\slider\login.png">
+             
+            </p>
+          </div>
+  
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <div style="margin-top:140px;" class="card">
+              <div class="card-body py-5 px-md-5">
+
+                <form action="" method="post">
+                  {% csrf_token %}
+                  <h3 class="my-1 display-4 fw-bold ls-tight">
+                    <span style="font-size: 35px; margin-left:175px;" class="text-primary">Sign up</span>
+                  </h3>
+                  
+                  <br>
+                  <!-- 2 column grid layout with text inputs for the first and last names -->
+                  <div class="row">
+                    <div class="col-md-12 mb-4">
+                      <div class="form-outline">
+                        {% comment %} <input type="text" id="form3Example1"  />
+                        <label class="form-label" for="form3Example1">{{form.username}}</label> {% endcomment %}
+                        {{form.username}}
+                        <label class="form-label" for="{{ form.username.id_for_label }}">User Name</label>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <!-- Email input -->
+                  <div class="form-outline mb-4">
+                    {% comment %} <input type="email" id="form3Example3" class="form-control" /> {% endcomment %}
+                    {{form.email}}
+                    <label class="form-label" for="{{ form.username.id_for_label }}">Email address</label>
+                  </div>
+  
+                  <!-- Password input -->
+                  <div class="form-outline mb-4">
+                    {% comment %} <input type="password" id="form3Example4" class="form-control" /> {% endcomment %}
+                    {{ form.password1 }}
+                    <label class="form-label" for="{{ form.username.id_for_label }}">Password</label>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    {% comment %} <input type="password" id="form3Example5" class="form-control" /> {% endcomment %}
+                    {{form.password2}}
+                    <label class="form-label" for="{{ form.username.id_for_label }}">Confirm Password</label>
+
+                  </div>
+  
+                  <!-- Checkbox -->
+                  <div class="form-check d-flex justify-content-center mb-4">
+                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
+                    <label class="form-check-label" for="form2Example33">
+                      Remember me
+                    </label>
+                  </div>
+
+                  
+  
+                  <!-- Submit button -->
+                  <!-- <button type="submit" class="btn btn-primary btn-block mb-4">
+                    Sign up
+                  </button> -->
+                  <input class="btn btn-primary btn-block mb-4" 
+                  type="submit"></input>
+  
+                 
+                  <!-- Register buttons -->
+                  
+                </form>
+
+              <div class="text-center">
+              {% for message in messages %}
+              <p style="color:black">{{message}}</p>
+              {% endfor %}
+              <p>Already have an account?</p>
+              <a href="{% url 'login' %}">Login</a>
+              </div>
+              </div>
+              {{form.errors}}
+
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Jumbotron -->
+  </section>
+  <!-- Section: Design Block -->
+
+
+  <!-- MDB -->
+<script
+type="text/javascript"
+src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js">
+</script>
+<script>
+    var form_fields = document.getElementsByTagName('input')
+    form_fields[0].className += " form-control"
+    form_fields[1].className += " form-control"
+    form_fields[2].className += " form-control"
+    form_fields[3].className += " form-control"
+    form_fields[4].className += " form-control"
+    form_fields[5].className += " form-check-input" 
+
+    {% comment %} form_fields[1].placeholder = "Enter your name "
+    form_fields[2].placeholder = "Enter email"
+    form_fields[3].placeholder = "Enter password"
+    form_fields[4].placeholder = "Re-enter password" {% endcomment %} 
+</script>
+    </body>
+</html>

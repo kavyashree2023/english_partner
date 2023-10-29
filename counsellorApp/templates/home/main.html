@@ -1,0 +1,141 @@
+<html>
+
+<head>
+  {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"> {% endcomment %}
+  
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+  <!-- MDB -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet" />
+
+    <style>
+
+      .gradient-custom {
+        background:black;
+    }
+
+    .button:active {
+      background-color: #54b4d3;
+      border: 1px solid #54b4d3;
+    }
+    .button:disabled {
+      background-color: #54b4d3;
+      border: 1px solid #54b4d3;
+    }
+    .logout-container {
+      position: absolute;
+      top: 10px; /* Adjust the top spacing as needed */
+      right: 10px; /* Adjust the right spacing as needed */
+  }
+</style>
+</head>
+
+<body class="gradient-custom">
+    <div class="container">
+      <form action="/date" method="post">
+        {% csrf_token %}
+        <div class="text-center">
+          <h1 style="color: #54b4d3"></h1>
+        </div>
+        <br>
+
+        {% comment %} <br>
+        <br> {% endcomment %}
+
+
+  <div style="margin-left:40px;margin-right:40px;" class="table-responsive">
+    <div>
+      {% for details in admin_info %}
+      <p style="color:#54b4d3; text-align: center;font-size:35px;">{{ details.date }}</p>
+      <p style="color:rgb(198, 198, 198); text-align: center;font-size:20px;">Overall Count</p>
+      <table  class="table align-middle mb-0 bg-white">
+        <thead class="bg-light">
+        <tr >
+          <th>
+            <p>Total Fb Msgs: {{ details.sumOfNumberOfFbMessages }}</p>
+          </th>
+          <th>
+            <p>Total Web Msgs: {{ details.sumOfNumberOfWebMessages }}</p>
+          </th>
+          <th>
+            <p>Total Fb Admission: {{ details.sumOfNumberOfFbAdmission }}</p>
+          </th>
+          <th>
+            <p>Total Web Admission: {{ details.sumOfNumberOfWebAdmission }}</p>
+            
+          </th>
+          <th>
+            <p>FB CPA: {{ details.fbCPA }}</p>
+          </th>
+          <th>
+            <p>WB CPA: {{ details.webCPA }}</p>
+          </th>
+        
+          <th>
+            <p>FB Lead Cost: {{ details.fbLeadCost}}</p>
+          </th>
+          <th>
+            <p>Web Lead Cost: {{ details.webLeadCost}}</p>
+          </th>
+          {% endfor %}
+        </tr>
+      </thead>
+      </table>
+      <br><br>
+    </div>  
+    <p style="color:rgb(198, 198, 198); text-align: center;font-size:20px;">Individual Count</p>
+    <table class="table align-middle mb-0 bg-white">
+      <thead class="bg-light">
+        <tr>
+          <th>Counsellor Name</th>
+          <th>No. of Fb Messages</th>
+          <th>No. of Wb Messages</th>
+          <th>No. of Fb Admission</th>
+          <th>No. of Wb Admission</th>
+          <th>Amount spent</th>
+          <th>Returns</th>
+         
+          
+        </tr>
+      </thead>
+      <tbody>
+        {% for detail in counsellor_info %}
+        <tr class="justify-content-center">
+            <td>{{ detail.counsellorName }}</td>
+            <td>{{ detail.numberOfFbMessages }}</td>
+            <td>{{ detail.numberOfWebMessages }}</td>
+            <td>{{ detail.numberOfFbAdmission }}</td>
+            <td>{{ detail.numberOfWebAdmission }}</td>
+            <td>{{ detail.amount_spent }}</td>
+            <td>{{ detail.returns }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+          <td colspan="9">No data available for the selected date.</td>
+      </tr>
+        {% endfor %}
+    </tbody>    
+    </table>
+
+    <div class="row mt-10 mx-3 justify-content-center" style="margin-top:25px ;">
+      <div class="col-md-3">
+          <div class="text-center">                   
+               <a href="/cdc" class="btn btn-info btn-rounded back-button" >Go to Home</a>
+          </div>    
+      </div>
+  {% comment %} </form> {% endcomment %}
+</div>
+  </div>
+  <script>
+  </script>
+</body>
+
+</html>

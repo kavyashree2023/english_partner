@@ -1,0 +1,134 @@
+<html>
+
+<head>
+  {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"> {% endcomment %}
+  
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+  <!-- MDB -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css" rel="stylesheet" />
+
+    <style>
+
+      .gradient-custom {
+        background:black;
+    }
+
+    .button:active {
+      background-color: #54b4d3;
+      border: 1px solid #54b4d3;
+    }
+    .button:disabled {
+      background-color: #54b4d3;
+      border: 1px solid #54b4d3;
+    }
+    .logout-container {
+      position: absolute;
+      top: 10px; /* Adjust the top spacing as needed */
+      right: 10px; /* Adjust the right spacing as needed */
+  }
+</style>
+</head>
+
+<body class="gradient-custom">
+    <div class="container">
+      <form action="/date" method="post">
+        {% csrf_token %}
+        <div class="text-center">
+          <h1 style="color: #54b4d3"></h1>
+        </div>
+        <br>
+
+        {% comment %} <br>
+        <br> {% endcomment %}
+
+        <div style="margin-left:250px;color:white;" class="container">
+          <div class="row">
+            <div class="col-md-6">
+
+              <h3>Date filter</h3>
+              <input type="date" name="date" id="date" class="form-control">
+            </div>
+          </div>
+        </div>
+        
+        
+
+        <br>
+     
+
+
+        
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <button class="btn btn-info btn-rounded" type="submit">Filter</button>
+            </div>
+          </div>
+        </div>
+        
+      </form>
+  </div>
+
+  <br><br>
+
+  <div style="margin-left:40px;margin-right:40px;" class="table-responsive">
+    <table class="table align-middle mb-0 bg-white">
+      <thead class="bg-light">
+        <tr>
+          <th>Batch Date</th>
+          <th>Counsellor Name</th>
+          <th>No. of Fb Messages</th>
+          <th>No. of Wb Messages</th>
+          <th>No. of Fb Admission</th>
+          <th>No. of Wb Admission</th>
+          
+          
+        </tr>
+      </thead>
+      <tbody>
+        {% for detail in details %}
+        <tr class="justify-content-center">
+            <td>{{ detail.batchDate }}</td>
+            <td>{{ detail.counsellorName }}</td>
+            <td>{{ detail.numberOfFbMessages }}</td>
+            <td>{{ detail.numberOfWebMessages }}</td>
+            <td>{{ detail.numberOfFbAdmission }}</td>
+            <td>{{ detail.numberOfWebAdmission }}</td>
+           
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="15">No Data Found</td>
+        </tr>
+        {% endfor %}
+    </tbody>    
+    </table>
+
+    <div class="row mt-10 mx-3 justify-content-center" style="margin-top:25px ;">
+      <div class="col-md-3">
+          <div class="text-center">   
+            {% if admin %}                
+               <a href="/cdc" class="btn btn-info btn-rounded back-button" >Go to Home</a>
+            {% else %}
+                <a href="/home" class="btn btn-info btn-rounded back-button" >Go to Home</a>
+            {% endif %}
+              
+          </div>    
+      </div>
+  {% comment %} </form> {% endcomment %}
+</div>
+  </div>
+  <script>
+  </script>
+</body>
+
+</html>
