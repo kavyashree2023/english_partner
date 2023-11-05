@@ -11,18 +11,23 @@ from django.db.models import Sum
 import datetime
 from collections import defaultdict
 from datetime import datetime
-
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.http import require_POST
 
 # Create your views here.
 
 @login_required(login_url='login')
+@csrf_protect
 def home(request):
     return render(request, 'home/home.html')
 
 @login_required(login_url='login')
+@csrf_protect
 def cdc(request):
     return render(request, 'home/cdc.html')
 
+@require_POST
+@csrf_protect
 def loginPage(request):
     
     if request.user.is_authenticated:
@@ -48,6 +53,8 @@ def loginPage(request):
 
 
 
+@require_POST
+@csrf_protect
 def registerPage(request):
     
     if request.user.is_authenticated:
@@ -66,6 +73,9 @@ def registerPage(request):
     context = {'form': form}
     return render(request, 'home/signup.html', context)
 
+
+@require_POST
+@csrf_protect
 def logoutUser(request):
     """
     This view function is responsible for logging out the user and redirecting to the login page.
@@ -73,6 +83,8 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
+@require_POST
+@csrf_protect
 def DataAdder(request):
 
     if request.method == 'POST':
@@ -113,6 +125,8 @@ def DataAdder(request):
         
         return render(request, 'home/user.html', context)
 
+@require_POST
+@csrf_protect
 def DataAdm(request):
     if request.method == 'POST':
         # Store Personal Details
@@ -140,7 +154,8 @@ def DataAdm(request):
 
 
 
-
+@require_POST
+@csrf_protect
 def DataFilter(request):
     username = request.user.username
     
@@ -237,6 +252,8 @@ def DataFilter(request):
         context = {'details': details, 'admin': False}
         return render(request, 'home/viewer.html', context)
 
+@require_POST
+@csrf_protect
 def filter(request):
     username = request.user.username
     
@@ -281,6 +298,8 @@ def filter(request):
 
 
 
+@require_POST
+@csrf_protect
 def batch_detail_view(request):
     if request.method == 'POST':
         date = request.POST.get('batch_date')
