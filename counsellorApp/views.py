@@ -86,7 +86,6 @@ def DataAdder(request):
         numberOfFbAdmission = request.POST.get('numberOfFbAdmission')
         numberOfWebAdmission = request.POST.get('numberOfWebAdmission')
 
-
         details = CounsellorInfo.objects.create(
                 user=User.objects.get(username=request.user.username),
                 batchDate=batchDate,
@@ -95,7 +94,6 @@ def DataAdder(request):
                 numberOfWebMessages=numberOfWebMessages,
                 numberOfFbAdmission=numberOfFbAdmission,
                 numberOfWebAdmission=numberOfWebAdmission,
-               
             )
             
         details.save()

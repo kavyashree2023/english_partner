@@ -15,6 +15,9 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+import environ
+env = environ.Env()
+environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -74,11 +77,35 @@ WSGI_APPLICATION = 'englishPartner.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+# import dj_database_url
+# DATABASES = {'default': dj_database_url.config(default='postgres://kavya:eF5YgfAxuLKYBQ6lv8k5hFsuXWqvrSjR@dpg-cl0c0jas1bgc73afvqug-a/test123_k8hy')}
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'counsellor Application',
+#         'USER': 'kavya',
+#         'PASSWORD': 'eF5YgfAxuLKYBQ6lv8k5hFsuXWqvrSjR',
+#         'HOST': '35.227.164.209',
+#         'PORT': '5432',
+#         'OPTIONS': {
+#             'sslmode': 'require',  # 'require' enforces SSL, 'disable' or 'allow' for other options
+#         }
+#     }
+# }
+import dj_database_url
+
+# Use the external database URL provided
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='postgres://counsellor_application_user:wTJpQQQLA27S7UJgsaviOy5n0SOivJiB@dpg-cl3l1l2uuipc738eg6b0-a.oregon-postgres.render.com/counsellor_application'
+    )
 }
 
 
