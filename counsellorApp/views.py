@@ -26,7 +26,7 @@ def home(request):
 def cdc(request):
     return render(request, 'home/cdc.html')
 
-@require_POST
+
 @csrf_protect
 def loginPage(request):
     
@@ -53,7 +53,7 @@ def loginPage(request):
 
 
 
-@require_POST
+
 @csrf_protect
 def registerPage(request):
     
@@ -74,7 +74,7 @@ def registerPage(request):
     return render(request, 'home/signup.html', context)
 
 
-@require_POST
+
 @csrf_protect
 def logoutUser(request):
     """
@@ -83,7 +83,7 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
-@require_POST
+
 @csrf_protect
 def DataAdder(request):
 
@@ -125,7 +125,7 @@ def DataAdder(request):
         
         return render(request, 'home/user.html', context)
 
-@require_POST
+
 @csrf_protect
 def DataAdm(request):
     if request.method == 'POST':
@@ -154,7 +154,6 @@ def DataAdm(request):
 
 
 
-@require_POST
 @csrf_protect
 def DataFilter(request):
     username = request.user.username
@@ -252,7 +251,6 @@ def DataFilter(request):
         context = {'details': details, 'admin': False}
         return render(request, 'home/viewer.html', context)
 
-@require_POST
 @csrf_protect
 def filter(request):
     username = request.user.username
@@ -297,8 +295,6 @@ def filter(request):
         return render(request, 'home/viewer.html', context)
 
 
-
-@require_POST
 @csrf_protect
 def batch_detail_view(request):
     if request.method == 'POST':
