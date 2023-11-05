@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-5d9td@v*+19@2_&3*f49ipgkvspx$i+hzuoi539qx38@#+2$9p
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-
+CSRF_TRUSTED_ORIGINS = ['https://counsellorapp.onrender.com']
 
 # Application definition
 
