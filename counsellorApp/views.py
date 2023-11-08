@@ -246,15 +246,11 @@ def DataFilter(request):
         context = {'details': details, 'final_table_data': final_table_data, 'admin': True}
         return render(request, 'home/total.html', context)
 
-    else:
-        details = CounsellorInfo.objects.all()
-        context = {'details': details, 'admin': False}
-        return render(request, 'home/viewer.html', context)
 
 @csrf_protect
 def filter(request):
     username = request.user.username
-    
+
     if request.user.is_superuser:
         admin = True
     else:
@@ -265,12 +261,11 @@ def filter(request):
 
         if admin:
             if not date:
-                sum_data = CounsellorInfo.objects.aggregate(
-                    sumOfNumberOfFbMessages=Sum('numberOfFbMessages'),
-                    sumOfNumberOfWebMessages=Sum('numberOfWebMessages'),
-                    sumOfNumberOfFbAdmission=Sum('numberOfFbAdmission'),
-                    sumOfNumberOfWebAdmission=Sum('numberOfWebAdmission'),
-                    
+                sum_data = AdminInfo.objects.aggregate(
+                    sumOfNumberOfFbMessages=Sum('sumOfNumberOfFbMessages'),
+                    sumOfNumberOfWebMessages=Sum('sumOfNumberOfWebMessages'),
+                    sumOfNumberOfFbAdmission=Sum('sumOfNumberOfFbAdmission'),
+                    sumOfNumberOfWebAdmission=Sum('sumOfNumberOfWebAdmission'),
                 )
 
                 admin_info = AdminInfo(
@@ -278,22 +273,26 @@ def filter(request):
                     sumOfNumberOfWebMessages=sum_data['sumOfNumberOfWebMessages'],
                     sumOfNumberOfFbAdmission=sum_data['sumOfNumberOfFbAdmission'],
                     sumOfNumberOfWebAdmission=sum_data['sumOfNumberOfWebAdmission'],
-                  
                 )
                 admin_info.save()
 
         if date:
-            details = AdminInfo.objects.filter(batchDate=date)
+            details = AdminInfo.objects.filter(date=date)
+            details = list(details.values()) if details else []
+
+
         else:
             details = AdminInfo.objects.all()
+            admin_info = None
 
         context = {'details': details, 'admin': admin}
-        return render(request, 'home/viewer.html', context)
+        print(context)
+        return render(request, 'home/total.html', context)
     else:
-        details = CounsellorInfo.objects.all()
-        context = {'details': details, 'admin': admin}
+        if request.method == 'POST':
+            details = CounsellorInfo.objects.filter(user=username)
+            context = {'details': details, 'admin': False}
         return render(request, 'home/viewer.html', context)
-
 
 @csrf_protect
 def batch_detail_view(request):
