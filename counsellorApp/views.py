@@ -316,6 +316,3 @@ def batch_detail_view(request):
         CounsellorInfo.objects.filter(batchDate=formatted_batch_date).update(amount_spent=amount_spent,returns=returns)
         context = {'admin_info': admin_info, 'counsellor_info': counsellor_info, 'final_info': final_info,'amount_spent':amount_spent,'returns':returns}
         return render(request, 'home/main.html', context)
-
-
-        
