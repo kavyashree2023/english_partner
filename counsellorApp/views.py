@@ -289,9 +289,8 @@ def filter(request):
         print(context)
         return render(request, 'home/total.html', context)
     else:
-        if request.method == 'POST':
-            details = CounsellorInfo.objects.filter(user=username)
-            context = {'details': details, 'admin': False}
+        details = CounsellorInfo.objects.filter(user=username)
+        context = {'details': details, 'admin': False}
         return render(request, 'home/viewer.html', context)
 
 @csrf_protect
