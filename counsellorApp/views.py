@@ -245,12 +245,15 @@ def DataFilter(request):
         final_table_data = FinalTable.objects.all()
         context = {'details': details, 'final_table_data': final_table_data, 'admin': True}
         return render(request, 'home/total.html', context)
+    else:
+        user=request.user
+        details = CounsellorInfo.objects.filter(user=user)
+        context = {'details': details, 'admin': False}
+        return render(request, 'home/viewer.html', context)
 
 
 @csrf_protect
 def filter(request):
-    username = request.user.username
-
     if request.user.is_superuser:
         admin = True
     else:
@@ -288,10 +291,6 @@ def filter(request):
         context = {'details': details, 'admin': admin}
         print(context)
         return render(request, 'home/total.html', context)
-    else:
-        details = CounsellorInfo.objects.filter(user=username)
-        context = {'details': details, 'admin': False}
-        return render(request, 'home/viewer.html', context)
 
 @csrf_protect
 def batch_detail_view(request):
