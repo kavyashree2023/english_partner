@@ -22,9 +22,10 @@
 
               <form action="" method="post">
                 {% csrf_token %}
-                <div class="form-outline mb-4">
-                  <input type="text" id="typeEmailX-2" name="username" class="form-control form-control-lg"
-                    placeholder="Username" />
+                <div class="form-outline">
+                  <input type="text" id="usernameInput" name="username" class="form-control" />
+                  <label class="form-label" for="typeEmailX-2">User Name</label>
+                </div>
 
                 </div>
 
@@ -135,7 +136,9 @@
                     <!-- <button type="submit" class="btn btn-primary btn-block mb-4">
                       Sign up
                     </button> -->
-                    <input class="btn btn-primary btn-block mb-4" type="submit" value="Login"></input>
+                    <input class="btn btn-primary btn-block mb-4" type="submit" value="Login">
+                  
+                  </input>
 
                     <!-- Register buttons -->
                     <div class="text-center">
@@ -168,7 +171,19 @@
 
 
   <!-- MDB -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var loginForm = document.querySelector("form");
+      loginForm.addEventListener("submit", function(event) {
+        var username = document.getElementById("usernameInput").value;
+        localStorage.setItem("username", username);
+        console.log(localStorage);
+        console.log(username);
+      });
+    });
+  </script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js">
+
   </script>
 </body>
 

@@ -154,8 +154,8 @@
                                 <div class="col">
                                     <p>Counsellor Name</p>
                                     <div class="form-outline">
-                                        <input type="text" class="form-control input-custom"  name="counsellorName" id="counsellorName"
-                                        requiredcomment  />
+                                        <input type="text" class="form-control input-custom" name="counsellorName" id="counsellorName" required />
+
                                         <!-- <label class="form-label" for="form9Example2">Email</label> -->
                                     </div>
                                 </div>
@@ -227,6 +227,15 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          var counsellorName = localStorage.getItem("userName");
+          if (counsellorName) {
+            document.getElementById("counsellorName").value = counsellorName;
+          }
+        });
+      </script>
+      
     <script>
         function goBack() {
           window.history.back();
