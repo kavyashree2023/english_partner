@@ -22,6 +22,7 @@
         background:black;
     }
 
+
     .button:active {
       background-color: #54b4d3;
       border: 1px solid #54b4d3;
@@ -35,6 +36,7 @@
       top: 10px; /* Adjust the top spacing as needed */
       right: 10px; /* Adjust the right spacing as needed */
   }
+ 
 </style>
 </head>
 
@@ -53,20 +55,24 @@
         <div style="margin-left:250px;color:white;" class="container">
           <div class="row">
             <div class="col-md-6">
+              
 
-              <h3>Date filter</h3>
+              <h3>
+                <style>
+                  .btn-rounded{
+                    margin-bottom: 30px;
+                  }
+                  @media (max-width:767px){
+                    .col-md-6 h3{
+                      font-size: 100px !important;
+                    }
+                  }
+                </style>Date filter</h3>
               <input type="date" name="date" id="date" class="form-control">
             </div>
           </div>
-        </div>
-        
-        
-
+        </div>     
         <br>
-     
-
-
-        
         <div class="container">
           <div class="row">
             <div class="col-md-12 text-center">
@@ -144,13 +150,22 @@
 
     <div class="row mt-10 mx-3 justify-content-center" style="margin-top:25px ;">
       <div class="col-md-3">
-          <div class="text-center">   
+          <div class="text-center" style="margin-bottom: 20px;" > 
+            
             {% if admin %}                
-               <a href="/cdc" class="btn btn-info btn-rounded back-button" >Go to Home</a>
+               <a href="/cdc" class="btn btn-info btn-rounded back-button btnnn">
+                <style>
+                  .btn-rounded{
+                    margin-bottom: 30px;
+                  }
+                  @media (max-width:767px){
+                    
+                  }
+                </style> Go to Home</a>
             {% else %}
-                <a href="/home" class="btn btn-info btn-rounded back-button" >Go to Home</a>
+                <a href="/home" class="btn btn-info btn-rounded back-button">Go to Home</a>
             {% endif %}
-              
+           
           </div>    
       </div>
   {% comment %} </form> {% endcomment %}
