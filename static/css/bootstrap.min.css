@@ -9220,4 +9220,7 @@ a.text-dark:hover {
 }
 
 @media only screen and (max-width: 750px) {
+  .justify{
+    margin-top: 500px;
+  }
 }

@@ -40,4 +40,9 @@
   .card {
     max-width: 600px !important;
   }
+  .justify {
+    width: 100% !important;
+    margin: auto;
+    margin-top: 500px;
+  }
 }

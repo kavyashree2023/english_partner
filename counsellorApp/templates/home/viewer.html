@@ -18,7 +18,7 @@
 
     <style>
 
-      .gradient-custom {
+      .grad{
         background:black;
     }
 
@@ -38,8 +38,8 @@
 </style>
 </head>
 
-<body class="gradient-custom">
-    <div class="container">
+<body class="grad">
+    <div class="">
       <form action="/date" method="post">
         {% csrf_token %}
         <div class="text-center">
@@ -50,27 +50,21 @@
         {% comment %} <br>
         <br> {% endcomment %}
 
-        <div style="margin-left:250px;color:white;max-width: 100%;" class="container">
-          <div class="row">
-            <div class="col-md-6">
+        <div style="margin-left:250px;color:white;width: 100%;" class="container">
+          <div class="">
+            <div style="width: 70%;">
 
-              <h3>Date filter</h3>
-              <input type="date" name="date" id="date" placeholder="YYYY-MM-DD" class="form-control">
+              <h1>Date filter</h1>
+              <input type="date" name="date" id="date" placeholder="YYYY-MM-DD" class="form-control" style="padding: 10px;">
             </div>
           </div>
         </div>
-        
-        
 
         <br>
-     
-
-
-        
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12 text-center">
-              <button class="btn btn-info btn-rounded" type="submit">Filter</button>
+        <div class="">
+          <div class="">
+            <div class="text-center">
+              <button class="btn btn-info btn-rounded" type="submit" style="font-size: 20px;">Filter</button>
             </div>
           </div>
         </div>
@@ -114,12 +108,12 @@
     </table>
 
     <div class="row mt-10 mx-3 justify-content-center" style="margin-top:25px ;">
-      <div class="col-md-3">
+      <div>
           <div class="text-center">   
             {% if admin %}                
-               <a href="/cdc" class="btn btn-info btn-rounded back-button" >Go to Home</a>
+               <a href="/cdc" class="btn btn-info btn-rounded back-button" style="font-size: 20px;margin-top: 20px; margin-bottom: 30px;" >Go to Home</a>
             {% else %}
-                <a href="/home" class="btn btn-info btn-rounded back-button" >Go to Home</a>
+                <a href="/home" class="btn btn-info btn-rounded back-button" style="font-size: 20px; margin-top: 20px;margin-bottom: 30px;">Go to Home</a>
             {% endif %}
               
           </div>    
