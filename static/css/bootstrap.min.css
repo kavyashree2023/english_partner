@@ -197,6 +197,7 @@ svg {
 }
 table {
   border-collapse: collapse;
+  margin-top:60px;
 }
 caption {
   padding-top: 0.75rem;
