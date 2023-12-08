@@ -144,7 +144,7 @@ def DataAdm(request):
         context = {
             'data_added': True
         }
-        return render(request, 'home/cdc.html', context)
+        return render(request, 'home/total.html', context)
     else:
         user = request.user
         context = {
