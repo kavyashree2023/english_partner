@@ -26,7 +26,6 @@ def home(request):
 def cdc(request):
     return render(request, 'home/cdc.html')
 
-
 @csrf_protect
 def loginPage(request):
     
@@ -115,7 +114,7 @@ def DataAdder(request):
             'data_added': True
         }
         time.sleep(10)
-        
+
         return render(request, 'home/home.html', context)
 
     else:
