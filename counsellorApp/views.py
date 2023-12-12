@@ -92,6 +92,7 @@ def DataAdder(request):
         # Store Personal Details
 
         batchDate = request.POST.get('batchDate')
+        print(batchDate)
         counsellorName = request.POST.get('counsellorName')
         numberOfFbMessages = request.POST.get('numberOfFbMessages')
         numberOfWebMessages = request.POST.get('numberOfWebMessages')
@@ -131,6 +132,7 @@ def DataAdm(request):
     if request.method == 'POST':
         # Store Personal Details
         batchDate = request.POST.get('batchDate')
+        print(batchDate)
         FbExpense = request.POST.get('fbExpense')
         WebExpense = request.POST.get('webExpense')
         
