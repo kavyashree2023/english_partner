@@ -91,22 +91,22 @@ def DataAdder(request):
 
         # Store Personal Details
 
-        batchDate = request.POST.get('batchDate')
-        print(batchDate)
-        counsellorName = request.POST.get('counsellorName')
-        numberOfFbMessages = request.POST.get('numberOfFbMessages')
-        numberOfWebMessages = request.POST.get('numberOfWebMessages')
-        numberOfFbAdmission = request.POST.get('numberOfFbAdmission')
-        numberOfWebAdmission = request.POST.get('numberOfWebAdmission')
+        batch_date = request.POST.get('batchDate')
+        print(batch_date)
+        counsellor_name = request.POST.get('counsellorName')
+        fb_messages = request.POST.get('numberOfFbMessages')
+        web_messages = request.POST.get('numberOfWebMessages')
+        fb_admission = request.POST.get('numberOfFbAdmission')
+        web_admission = request.POST.get('numberOfWebAdmission')
 
         details = CounsellorInfo.objects.create(
                 user=User.objects.get(username=request.user.username),
-                batchDate=batchDate,
-                counsellorName=counsellorName,
-                numberOfFbMessages=numberOfFbMessages,
-                numberOfWebMessages=numberOfWebMessages,
-                numberOfFbAdmission=numberOfFbAdmission,
-                numberOfWebAdmission=numberOfWebAdmission,
+                batchDate=batch_date,
+                counsellorName=counsellor_name,
+                numberOfFbMessages=fb_messages,
+                numberOfWebMessages=web_messages,
+                numberOfFbAdmission=fb_admission,
+                numberOfWebAdmission=web_admission,
             )
             
         details.save()
@@ -132,21 +132,23 @@ def DataAdm(request):
     if request.method == 'POST':
         # Store Personal Details
         batchDate = request.POST.get('batchDate')
+        TEMPLATE_NAME = 'home/total.html'
+
         print(batchDate)
         FbExpense = request.POST.get('fbExpense')
         WebExpense = request.POST.get('webExpense')
-        
+
         details = FinalTable.objects.create(
             batchDate=batchDate,
             fbExpense=FbExpense,
             webExpense=WebExpense,
         )
         details.save()
-        
+
         context = {
             'data_added': True
         }
-        return render(request, 'home/total.html', context)
+        return render(request, TEMPLATE_NAME, context)
     else:
         user = request.user
         context = {

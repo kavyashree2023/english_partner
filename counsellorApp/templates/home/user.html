@@ -143,6 +143,7 @@
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <img  width="60%" height="60%" src="static\images\slider\fillup.jpg"><br><br>
+
                         <form class="mb-0" action="/user" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
 
@@ -202,10 +203,6 @@
                                 </div>
                             </div>
 
-                                        
-
-                                
-
                             {% comment %} <div class="form-group">
                                 <label>File</label>
                                 {{form.file}}
@@ -215,9 +212,8 @@
 
                             <div style="margin-top:20px;margin-bottom:-20px;align-items:center;justify-content:center;display:flex" class="justify-content">
                                 <!-- Submit button -->
-                               <br><br> <a href="/viewer" type="submit" class="btn btn-primary btn-rounded"
-                                    style="background-color: #0062CC ;margin-left:-20px;">Submit </a>
-                                    <a href="/home" type="submit" class="btn btn-primary btn-rounded" style="background-color: #0062CC ;margin-left:30px;">Go back</a></button>
+                                <button type="submit" class="btn btn-primary btn-rounded" style="background-color: #0062CC ;margin-left:-20px;">Submit </button>
+                                <a href="/home" class="btn btn-primary btn-rounded" style="background-color: #0062CC ;margin-left:30px;">Go back</a>
                             </div>
                             {% if data_uploaded %}
                                 <div class="alert alert-success" role="alert">
