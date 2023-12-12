@@ -13,7 +13,7 @@ from collections import defaultdict
 from datetime import datetime
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
-
+import time
 # Create your views here.
 
 @login_required(login_url='login')
@@ -114,6 +114,8 @@ def DataAdder(request):
         context = {
             'data_added': True
         }
+        time.sleep(10)
+        
         return render(request, 'home/home.html', context)
 
     else:
