@@ -13,7 +13,7 @@ from collections import defaultdict
 from datetime import datetime
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
-
+import time
 # Create your views here.
 
 @login_required(login_url='login')
@@ -25,7 +25,6 @@ def home(request):
 @csrf_protect
 def cdc(request):
     return render(request, 'home/cdc.html')
-
 
 @csrf_protect
 def loginPage(request):
@@ -114,11 +113,11 @@ def DataAdder(request):
         context = {
             'data_added': True
         }
+        time.sleep(10)
+
         return render(request, 'home/home.html', context)
-    
 
     else:
-
         user = request.user
         context = {
             'data_added': False
@@ -250,10 +249,16 @@ def DataFilter(request):
         context = {'details': details, 'final_table_data': final_table_data, 'admin': True}
         return render(request, 'home/total.html', context)
     else:
-        user=request.user
-        details = CounsellorInfo.objects.filter(user=user)
-        context = {'details': details, 'admin': False}
-        return render(request, 'home/viewer.html', context)
+        if request.method == 'POST':
+            date = request.POST.get('date')
+            details = CounsellorInfo.objects.filter(user=request.user, batchDate=date)
+            context = {'details': details, 'admin': False}
+            return render(request, 'home/viewer.html', context)
+        else:
+            user=request.user
+            details = CounsellorInfo.objects.filter(user=user)
+            context = {'details': details, 'admin': False}
+            return render(request, 'home/viewer.html', context)
 
 
 @csrf_protect
@@ -283,18 +288,27 @@ def filter(request):
                 )
                 admin_info.save()
 
-        if date:
-            details = AdminInfo.objects.filter(date=date)
-            details = list(details.values()) if details else []
+            if date:
+                details = AdminInfo.objects.filter(date=date)
+                details = list(details.values()) if details else []
 
 
+            else:
+                details = AdminInfo.objects.all()
+                admin_info = None
+
+            context = {'details': details, 'admin': admin}
+            print(context)
+            return render(request, 'home/total.html', context)
         else:
-            details = AdminInfo.objects.all()
-            admin_info = None
-
-        context = {'details': details, 'admin': admin}
-        print(context)
-        return render(request, 'home/total.html', context)
+            if date:
+                details = CounsellorInfo.objects.filter(user=request.user, batchDate=date)
+                details = list(details.values()) if details else []
+            else:
+                details = CounsellorInfo.objects.filter(user=request.user)
+                details = list(details.values()) if details else []
+            context = {'details': details, 'admin': admin}
+            return render(request, 'home/viewer.html', context)
 
 @csrf_protect
 def batch_detail_view(request):
