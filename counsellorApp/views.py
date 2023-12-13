@@ -92,7 +92,7 @@ def DataAdder(request):
 
         batch_date = request.POST.get('batchDate')
         print(batch_date)
-        counsellor_name = request.POST.get('counsellorName')
+        # counsellor_name = request.POST.get('counsellorName')
         fb_messages = request.POST.get('numberOfFbMessages')
         web_messages = request.POST.get('numberOfWebMessages')
         fb_admission = request.POST.get('numberOfFbAdmission')
@@ -101,7 +101,7 @@ def DataAdder(request):
         details = CounsellorInfo.objects.create(
                 user=User.objects.get(username=request.user.username),
                 batchDate=batch_date,
-                counsellorName=counsellor_name,
+                counsellorName=User.objects.get(username=request.user.username),
                 numberOfFbMessages=fb_messages,
                 numberOfWebMessages=web_messages,
                 numberOfFbAdmission=fb_admission,
@@ -120,11 +120,10 @@ def DataAdder(request):
     else:
         user = request.user
         context = {
-            'data_added': False
+            'data_added': False,
+            'counsellor_name': user.username  # Pass the current user's name to the context
         }
-        
         return render(request, 'home/user.html', context)
-
 
 @csrf_protect
 def DataAdm(request):

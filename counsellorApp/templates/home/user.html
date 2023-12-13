@@ -158,7 +158,11 @@
             z-index: 1000;
         }
     </style>
-    
+    <script>
+        popup = () => {
+            alert("Data has been uploaded successfully!");
+        }
+    </script>
 </head>
 
 <body class="gradient-custom">
@@ -194,8 +198,8 @@
                                 <div class="col">
                                     <p>Counsellor Name</p>
                                     <div class="form-outline">
-                                        <input type="text" class="form-control input-custom" name="counsellorName" id="counsellorName" required />
-
+                                        <!-- <input type="text" class="form-control input-custom" name="counsellorName" id="counsellorName" required />  -->
+                                        <input type="text" class="form-control input-custom" name="counsellorName" value="{{ counsellor_name }}" readonly>
                                         <!-- <label class="form-label" for="form9Example2">Email</label> -->
                                     </div>
                                 </div>
@@ -248,34 +252,21 @@
 
                             <div style="margin-top:20px;margin-bottom:-20px;align-items:center;justify-content:center;display:flex" class="justify-content">
                                 <!-- Submit button -->
-                                <button type="submit" class="btn btn-primary btn-rounded" style="background-color: #0062CC ;margin-left:-20px;">Submit </button>
+                                <button onclick="popup()" type="submit" class="btn btn-primary btn-rounded" style="background-color: #0062CC ;margin-left:-20px;">Submit </button>
                                 <a href="/home" class="btn btn-primary btn-rounded" style="background-color: #0062CC ;margin-left:30px;">Go back</a>
                             </div>
-                            <div id="popup" class="popup">
-                                <p>Data has been added successfully!</p>
-                            </div>
+<!--                          
                             {% if data_uploaded %}
                                 <div class="alert alert-success" role="alert">
                                         Data has been uploaded successfully!
                                 </div>
-                            {% endif %}
+                            {% endif %} -->
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Show the pop-up on page load
-            document.getElementById("popup").style.display = "block";
-
-            // You can also add a timeout to hide the pop-up after a certain duration
-            setTimeout(function () {
-                document.getElementById("popup").style.display = "none";
-            }, 1000); // This will hide the pop-up after 3 seconds (adjust as needed)
-        });
-    </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
           var counsellorName = localStorage.getItem("userName");
