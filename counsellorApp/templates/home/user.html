@@ -54,17 +54,6 @@
             z-index: 1000;
         }
     </style>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Show the pop-up on page load
-            document.getElementById("popup").style.display = "block";
-
-            // You can also add a timeout to hide the pop-up after a certain duration
-            setTimeout(function () {
-                document.getElementById("popup").style.display = "none";
-            }, 3000); // This will hide the pop-up after 3 seconds (adjust as needed)
-        });
-    </script>
 </head>
 
 
@@ -199,7 +188,7 @@
                                     <p>Counsellor Name</p>
                                     <div class="form-outline">
                                         <!-- <input type="text" class="form-control input-custom" name="counsellorName" id="counsellorName" required />  -->
-                                        <input type="text" class="form-control input-custom" name="counsellorName" value="{{ counsellor_name }}" readonly>
+                                        <input type="text" class="form-control input-custom" name="counsellorName" id="counsellorName" value="{{ counsellor_name }}" readonly>
                                         <!-- <label class="form-label" for="form9Example2">Email</label> -->
                                     </div>
                                 </div>

@@ -92,7 +92,7 @@ def DataAdder(request):
 
         batch_date = request.POST.get('batchDate')
         print(batch_date)
-        # counsellor_name = request.POST.get('counsellorName')
+        counsellor_name = request.POST.get('counsellorName')
         fb_messages = request.POST.get('numberOfFbMessages')
         web_messages = request.POST.get('numberOfWebMessages')
         fb_admission = request.POST.get('numberOfFbAdmission')
@@ -101,7 +101,7 @@ def DataAdder(request):
         details = CounsellorInfo.objects.create(
                 user=User.objects.get(username=request.user.username),
                 batchDate=batch_date,
-                counsellorName=User.objects.get(username=request.user.username),
+                counsellorName=counsellor_name,
                 numberOfFbMessages=fb_messages,
                 numberOfWebMessages=web_messages,
                 numberOfFbAdmission=fb_admission,
@@ -130,7 +130,7 @@ def DataAdm(request):
     if request.method == 'POST':
         # Store Personal Details
         batchDate = request.POST.get('batchDate')
-        TEMPLATE_NAME = 'home/total.html'
+
 
         print(batchDate)
         FbExpense = request.POST.get('fbExpense')
@@ -146,7 +146,7 @@ def DataAdm(request):
         context = {
             'data_added': True
         }
-        return render(request, TEMPLATE_NAME, context)
+        return render(request, 'home/cdc.html', context)
     else:
         user = request.user
         context = {
