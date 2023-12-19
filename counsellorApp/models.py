@@ -6,22 +6,24 @@ class CounsellorInfo(models.Model):
     batchDate = models.DateField(null=True)
     counsellorName = models.CharField(max_length=255, null=True)
     numberOfFbMessages = models.IntegerField(null=True)
-    numberOfWebMessages = models.IntegerField(null=True)
     numberOfFbAdmission = models.IntegerField(null=True)
+    numberOfWebMessages = models.IntegerField(null=True)
     numberOfWebAdmission = models.IntegerField(null=True)
+    socialMedia = models.IntegerField(null=True)
     amount_spent = models.DecimalField(max_digits=10, decimal_places=2, null=True, default=0)
     returns = models.DecimalField(max_digits=10, decimal_places=2, null=True)
 
 class AdminInfo(models.Model):
     date = models.DateField(null=True)
     sumOfNumberOfFbMessages = models.IntegerField(null=True)
-    sumOfNumberOfWebMessages = models.IntegerField(null=True)
     sumOfNumberOfFbAdmission = models.IntegerField(null=True)
+    sumOfNumberOfWebMessages = models.IntegerField(null=True)
     sumOfNumberOfWebAdmission = models.IntegerField(null=True)
     fbLeadCost = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     webLeadCost = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     fbCPA = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     webCPA = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    socialMedia = models.IntegerField(null=True)
 
 class FinalTable(models.Model):
     batchDate = models.DateField(null=True)
