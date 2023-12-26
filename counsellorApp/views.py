@@ -94,18 +94,20 @@ def DataAdder(request):
         print(batch_date)
         counsellor_name = request.POST.get('counsellorName')
         fb_messages = request.POST.get('numberOfFbMessages')
-        web_messages = request.POST.get('numberOfWebMessages')
         fb_admission = request.POST.get('numberOfFbAdmission')
+        web_messages = request.POST.get('numberOfWebMessages')
         web_admission = request.POST.get('numberOfWebAdmission')
+        social_media = request.POST.get('socialMedia')
 
         details = CounsellorInfo.objects.create(
                 user=User.objects.get(username=request.user.username),
                 batchDate=batch_date,
                 counsellorName=counsellor_name,
                 numberOfFbMessages=fb_messages,
-                numberOfWebMessages=web_messages,
                 numberOfFbAdmission=fb_admission,
+                numberOfWebMessages=web_messages,
                 numberOfWebAdmission=web_admission,
+                socialMedia=social_media,
             )
             
         details.save()
@@ -165,8 +167,8 @@ def DataFilter(request):
         
         aggregated_data = defaultdict(lambda: {
             'sumOfNumberOfFbMessages': 0,
-            'sumOfNumberOfWebMessages': 0,
             'sumOfNumberOfFbAdmission': 0,
+            'sumOfNumberOfWebMessages': 0,
             'sumOfNumberOfWebAdmission': 0,
             'sumOfFbExpense': 0,
             'sumOfWebExpense': 0,
