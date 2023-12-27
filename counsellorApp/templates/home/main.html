@@ -68,26 +68,30 @@
             <p>Total Fb Admission: {{ details.sumOfNumberOfFbAdmission }}</p>
           </th>
           <th>
-            <p>FB CPA: {{ details.fbCPA }}</p> 
-          </th>
-          <th>
-            <p>FB Lead Cost: {{ details.fbLeadCost}}</p>  
-          </th>
-          <th>
             <p>Total Web Msgs: {{ details.sumOfNumberOfWebMessages }}</p>
           </th>
           <th>
             <p>Total Web Admission: {{ details.sumOfNumberOfWebAdmission }}</p> 
           </th>
+          <!-- <th>
+            <p>Total Social Media: {{ details.SumOfSocialMedia }}</p>
+            
+          </th> -->
+          <th>
+            <p>FB CPA: {{ details.fbCPA }}</p> 
+          </th>
           <th>
             <p>WB CPA: {{ details.webCPA }}</p>
           </th>
           <th>
-            <p>Web Lead Cost: {{ details.webLeadCost}}</p>
+            <p>FB Lead Cost: {{ details.fbLeadCost}}</p>  
           </th>
           <th>
-            <p>Total Social Media: {{ details.socialMedia }}</p>
+            <p>Web Lead Cost: {{ details.webLeadCost}}</p>
           </th>
+          
+          
+          
           {% endfor %}
         </tr>
       </thead>
@@ -103,7 +107,7 @@
           <th>No. of Fb Admission</th>
           <th>No. of Wb Messages</th>
           <th>No. of Wb Admission</th>
-          <th>Social Media</th>
+          <!-- <th>Social Media</th> -->
           <th>Amount spent</th>
           <th>Returns</th>
          
@@ -118,7 +122,7 @@
             <td>{{ detail.numberOfFbAdmission }}</td>
             <td>{{ detail.numberOfWebMessages }}</td>
             <td>{{ detail.numberOfWebAdmission }}</td>
-            <td>{{ detail.socialMedia }}</td>
+            <!-- <td>{{ detail.socialMedia }}</td> -->
             <td>{{ detail.amount_spent }}</td>
             <td>{{ detail.returns }}</td>
       </tr>
