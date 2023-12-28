@@ -322,12 +322,22 @@ def filter(request):
 @csrf_protect
 def batch_detail_view(request):
     if request.method == 'POST':
-        date = request.POST.get('batch_date')
-        batch_date_obj = datetime.strptime(date, "%b. %d, %Y")
-        formatted_batch_date = batch_date_obj.strftime("%Y-%m-%d")
-        counsellor_info = CounsellorInfo.objects.filter(batchDate=formatted_batch_date)
-        admin_info = AdminInfo.objects.filter(date=formatted_batch_date)
-        final_info = FinalTable.objects.filter(batchDate=formatted_batch_date)
+        month = request.POST.get('month')
+        year = request.POST.get('year')
+        month = int(month)
+        year = int(year)
+        counsellor_info = CounsellorInfo.objects.filter(
+            batchDate__year=year,
+            batchDate__month=month
+        )
+        admin_info = AdminInfo.objects.filter(
+            date__year=year,
+            date__month=month
+        )
+        final_info = FinalTable.objects.filter(
+            batchDate__year=year,
+            batchDate__month=month
+        )
         amount_spent = 0
         returns = 0
         for counsellor in counsellor_info:
@@ -337,6 +347,7 @@ def batch_detail_view(request):
         
         amount_spent=round(amount_spent,2)
         returns=round(returns,2)
-        CounsellorInfo.objects.filter(batchDate=formatted_batch_date).update(amount_spent=amount_spent,returns=returns)
+        CounsellorInfo.objects.filter( batchDate__year=year,
+            batchDate__month=month).update(amount_spent=amount_spent,returns=returns)
         context = {'admin_info': admin_info, 'counsellor_info': counsellor_info, 'final_info': final_info,'amount_spent':amount_spent,'returns':returns}
         return render(request, 'home/main.html', context)
