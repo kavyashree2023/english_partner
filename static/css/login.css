@@ -3,6 +3,7 @@
   padding-left: 0px !important;
   height: 100%;
 }
+
 .container {
   max-width: 700px !important;
   width: 900px;
@@ -12,37 +13,60 @@
   width: 90%;
   height: 90%;
 }
+
 .px-8 {
   height: 100% !important;
 }
+
 .text-center {
   background-color: #c0c0c0;
 }
 
 .card {
   margin-top: 140px !important;
-}
-.card {
   width: 500px;
   margin-left: auto;
   margin-right: auto;
 }
 
-@media only screen and (max-width: 768px) {
-  .container-fluid {
-    padding-right: 0px !important;
-    padding-left: 0px !important;
+/* Media Queries */
+
+/* Tablets (Portrait and Landscape) */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .card {
+    width: 80%;
+    margin-top: 20px;
   }
   .img {
-    width: 10% !important;
-    height: 10% !important;
+    width: 80%;
+    height: auto;
+  }
+}
+
+/* Mobile Phones (Portrait and Landscape) - Adjust as per your need */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px),
+       only screen and (min-device-width: 481px) and (max-device-width: 767px) {
+  .container-fluid {
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+  }
+  .img {
+    width: 100% !important;
+    height: auto !important;
   }
   .card {
-    max-width: 600px !important;
+    width: 90% !important;
+    margin-top: 20px !important;
   }
-  .justify {
+  .container {
     width: 100% !important;
-    margin: auto;
-    margin-top: 500px;
+    max-width: 100% !important;
+  }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width: 1200px) {
+  .container {
+    max-width: 970px !important;
   }
 }
