@@ -97,7 +97,7 @@ def DataAdder(request):
         fb_admission = request.POST.get('numberOfFbAdmission')
         web_messages = request.POST.get('numberOfWebMessages')
         web_admission = request.POST.get('numberOfWebAdmission')
-        # social_media = request.POST.get('socialMedia')
+        social_media = request.POST.get('socialMedia')
 
         details = CounsellorInfo.objects.create(
                 user=User.objects.get(username=request.user.username),
@@ -107,7 +107,7 @@ def DataAdder(request):
                 numberOfFbAdmission=fb_admission,
                 numberOfWebMessages=web_messages,
                 numberOfWebAdmission=web_admission,
-                # socialMedia=social_media,
+                socialMedia=social_media,
             )
             
         details.save()
@@ -168,7 +168,7 @@ def DataFilter(request):
             'sumOfNumberOfFbAdmission': 0,
             'sumOfNumberOfWebMessages': 0,
             'sumOfNumberOfWebAdmission': 0,
-            # 'sumOfSocialMediaMessages': 0,
+            'sumOfSocialMediaMessages': 0,
             'sumOfFbExpense': 0,
             'sumOfWebExpense': 0,
             
@@ -194,7 +194,7 @@ def DataFilter(request):
             sum_fb_admission = data['sumOfNumberOfFbAdmission']
             sum_web_messages = data['sumOfNumberOfWebMessages']
             sum_web_admission = data['sumOfNumberOfWebAdmission']
-            # sum_social_media = data['sumOfSocialMediaMessages']
+            sum_social_media = data['sumOfSocialMediaMessages']
             sum_fb_expense = data['sumOfFbExpense']
             sum_web_expense = data['sumOfWebExpense']
             
