@@ -180,7 +180,7 @@ def DataFilter(request):
             aggregated_data[batch_date]['sumOfNumberOfFbAdmission'] += counsellor_info.numberOfFbAdmission
             aggregated_data[batch_date]['sumOfNumberOfWebMessages'] += counsellor_info.numberOfWebMessages
             aggregated_data[batch_date]['sumOfNumberOfWebAdmission'] += counsellor_info.numberOfWebAdmission
-            # aggregated_data[batch_date]['sumOfSocialMediaMessages'] += counsellor_info.socialMedia
+            aggregated_data[batch_date]['sumOfSocialMediaMessages'] += counsellor_info.socialMedia
 
         final_table_data = FinalTable.objects.all()
 
@@ -210,7 +210,7 @@ def DataFilter(request):
                 admin_info.sumOfNumberOfFbAdmission = sum_fb_admission
                 admin_info.sumOfNumberOfWebMessages = sum_web_messages
                 admin_info.sumOfNumberOfWebAdmission = sum_web_admission
-                # admin_info.sumOfSocialMediaMessages = sum_social_media
+                admin_info.sumOfSocialMediaMessages = sum_social_media
                 
                 # Calculate FB lead cost and Web lead cost
                 admin_info.fbLeadCost = sum_fb_expense / sum_fb_messages if sum_fb_messages is not None and sum_fb_messages > 0 else 0
@@ -228,7 +228,7 @@ def DataFilter(request):
                 first_admin_info.sumOfNumberOfFbAdmission = sum_fb_admission
                 first_admin_info.sumOfNumberOfWebMessages = sum_web_messages
                 first_admin_info.sumOfNumberOfWebAdmission = sum_web_admission
-                # first_admin_info.sumOfSocialMediaMessages = sum_social_media
+                first_admin_info.sumOfSocialMediaMessages = sum_social_media
                 first_admin_info.fbLeadCost = sum_fb_expense / sum_fb_messages if sum_fb_messages is not None and sum_fb_messages > 0 else 0
                 first_admin_info.webLeadCost = sum_web_expense / sum_web_messages if sum_web_messages is not None and sum_web_messages > 0 else 0
                 first_admin_info.fbCPA = sum_fb_expense / sum_fb_admission if sum_fb_admission is not None and sum_fb_admission > 0 else 0
@@ -242,7 +242,7 @@ def DataFilter(request):
                     sumOfNumberOfFbAdmission=sum_fb_admission,
                     sumOfNumberOfWebMessages=sum_web_messages,
                     sumOfNumberOfWebAdmission=sum_web_admission,
-                    # sumOfSocialMediaMessages=sum_social_media,
+                    sumOfSocialMediaMessages=sum_social_media,
                     fbLeadCost = sum_fb_expense / sum_fb_messages if sum_fb_messages is not None and sum_fb_messages > 0 else 0,
                     webLeadCost = sum_web_expense / sum_web_messages if sum_web_messages is not None and sum_web_messages > 0 else 0,
                     fbCPA = sum_fb_expense / sum_fb_admission if sum_fb_admission is not None and sum_fb_admission > 0 else 0,
@@ -285,7 +285,7 @@ def filter(request):
                     sumOfNumberOfFbAdmission=Sum('sumOfNumberOfFbAdmission'),
                     sumOfNumberOfWebMessages=Sum('sumOfNumberOfWebMessages'),
                     sumOfNumberOfWebAdmission=Sum('sumOfNumberOfWebAdmission'),
-                    # sumOfSocialMediaMessages=Sum('sumOfSocialMediaMessages'),
+                    sumOfSocialMediaMessages=Sum('sumOfSocialMediaMessages'),
                 )
 
                 admin_info = AdminInfo(
@@ -293,7 +293,7 @@ def filter(request):
                     sumOfNumberOfFbAdmission=sum_data['sumOfNumberOfFbAdmission'],
                     sumOfNumberOfWebMessages=sum_data['sumOfNumberOfWebMessages'],
                     sumOfNumberOfWebAdmission=sum_data['sumOfNumberOfWebAdmission'],
-                    # sumOfSocialMediaMessages=sum_data['sumOfSocialMediaMessages'],
+                    sumOfSocialMediaMessages=sum_data['sumOfSocialMediaMessages'],
                 )
                 admin_info.save()
 
