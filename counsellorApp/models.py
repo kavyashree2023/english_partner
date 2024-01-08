@@ -19,7 +19,7 @@ class AdminInfo(models.Model):
     sumOfNumberOfFbAdmission = models.IntegerField(null=True)
     sumOfNumberOfWebMessages = models.IntegerField(null=True)
     sumOfNumberOfWebAdmission = models.IntegerField(null=True)
-    socialMedia = models.IntegerField(null=True)
+    sumOfSocialMediaMessages = models.IntegerField(null=True)
     fbLeadCost = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     webLeadCost = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     fbCPA = models.DecimalField(max_digits=10, decimal_places=2, null=True)
