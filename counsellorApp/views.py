@@ -168,7 +168,7 @@ def DataFilter(request):
             'sumOfNumberOfFbAdmission': 0,
             'sumOfNumberOfWebMessages': 0,
             'sumOfNumberOfWebAdmission': 0,
-            'sumOfSocialMediaMessages': 0,
+            'socialMedia': 0,
             'sumOfFbExpense': 0,
             'sumOfWebExpense': 0,
             
@@ -195,7 +195,7 @@ def DataFilter(request):
             sum_fb_admission = data['sumOfNumberOfFbAdmission']
             sum_web_messages = data['sumOfNumberOfWebMessages']
             sum_web_admission = data['sumOfNumberOfWebAdmission']
-            sum_social_media = data['sumOfSocialMediaMessages']
+            sum_social_media = data['socialMedia']
             sum_fb_expense = data['sumOfFbExpense']
             sum_web_expense = data['sumOfWebExpense']
             
