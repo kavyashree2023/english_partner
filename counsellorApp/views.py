@@ -85,13 +85,10 @@ def logoutUser(request):
 
 @csrf_protect
 def DataAdder(request):
-
     if request.method == 'POST':
-
-        # Store Personal Details
-
-        batch_date = request.POST.get('batchDate')
-        print(batch_date)
+        # Retrieve month and year from POST request
+        month = request.POST.get('month')
+        year = request.POST.get('year')
         counsellor_name = request.POST.get('counsellorName')
         fb_messages = request.POST.get('numberOfFbMessages')
         fb_admission = request.POST.get('numberOfFbAdmission')
@@ -99,7 +96,22 @@ def DataAdder(request):
         web_admission = request.POST.get('numberOfWebAdmission')
         social_media = request.POST.get('socialMedia')
 
-        details = CounsellorInfo.objects.create(
+        # Convert month and year to integers and handle invalid inputs
+        try:
+            month = int(month) if month else None
+            year = int(year) if year else None
+        except ValueError:
+            messages.error(request, "Invalid month or year")
+            return redirect('some-view')  # Replace with your actual redirect
+
+        # Assuming you want to create or update the CounsellorInfo object based on the month and year
+        if month and year:
+            # Construct a date object from year and month, assuming day is the first of the month
+            # You might need to adjust this based on how your application expects the date
+            batch_date = datetime.date(year, month, 1)
+
+            # Create CounsellorInfo object
+            details = CounsellorInfo.objects.create(
                 user=User.objects.get(username=request.user.username),
                 batchDate=batch_date,
                 counsellorName=counsellor_name,
@@ -110,14 +122,19 @@ def DataAdder(request):
                 socialMedia=social_media,
             )
             
-        details.save()
-         
-        context = {
-            'data_added': True
-        }
-        time.sleep(10)
+            details.save()
+            
+            context = {
+                'data_added': True
+            }
+            time.sleep(10)  # Consider if this sleep is necessary for your application
 
-        return render(request, 'home/home.html', context)
+            return render(request, 'home/home.html', context)
+
+        else:
+            # Handle cases where month or year is not provided
+            messages.error(request, "Month and year are required")
+            return redirect('some-view')  # Replace with your actual redirect
 
     else:
         user = request.user
@@ -130,25 +147,51 @@ def DataAdder(request):
 @csrf_protect
 def DataAdm(request):
     if request.method == 'POST':
-        # Store Personal Details
-        batchDate = request.POST.get('batchDate')
-        print(batchDate)
+        # Retrieve month and year from POST request
+        month = request.POST.get('month')
+        year = request.POST.get('year')
         FbExpense = request.POST.get('fbExpense')
         WebExpense = request.POST.get('webExpense')
 
-        details = FinalTable.objects.create(
-            batchDate=batchDate,
-            fbExpense=FbExpense,
-            webExpense=WebExpense,
-        )
-        details.save()
+        # Convert month and year to integers and handle invalid inputs
+        try:
+            month = int(month) if month else None
+            year = int(year) if year else None
+        except ValueError:
+            messages.error(request, "Invalid month or year")
+            return redirect('loginPage')  # Replace with your actual redirect
 
-        context = {
-            'data_added': True
-        }
-        return render(request, 'home/cdc.html', context)
+        # Assuming you want to create or update the FinalTable object based on the month and year
+        if month and year:
+            # Construct a date object from year and month, assuming day is the first of the month
+            # You might need to adjust this based on how your application expects the date
+            batchDate = datetime.date(year, month, 1)
+
+            # Create or update the FinalTable object
+            details, created = FinalTable.objects.update_or_create(
+                batchDate=batchDate,
+                defaults={
+                    'fbExpense': FbExpense,
+                    'webExpense': WebExpense,
+                }
+            )
+
+            # Save if it's a new object
+            if created:
+                details.save()
+
+            context = {
+                'data_added': True
+            }
+            return render(request, 'home/cdc.html', context)
+
+        else:
+            # Handle cases where month or year is not provided
+            messages.error(request, "Month and year are required")
+            return redirect('loginPage')  # Replace with your actual redirect
+
     else:
-        user = request.user
+        # Handle GET or other methods as needed
         context = {
             'data_added': False
         }
@@ -156,13 +199,33 @@ def DataAdm(request):
 
 
 
+
 @csrf_protect
 def DataFilter(request):
     username = request.user.username
-    
+
     if request.user.is_superuser:
-        counsellor_info_list = CounsellorInfo.objects.all()
-        
+        # Retrieve month and year from request
+        month = request.GET.get('month')
+        year = request.GET.get('year')
+
+        # Convert month and year to integers and handle invalid inputs
+        try:
+            month = int(month) if month else None
+            year = int(year) if year else None
+        except ValueError:
+            messages.error(request, "Invalid month or year")
+            return redirect('some-view')  # Replace with your actual redirect
+
+        # Filter based on month and year
+        if year and month:
+            counsellor_info_list = CounsellorInfo.objects.filter(batchDate__year=year, batchDate__month=month)
+            final_table_data = FinalTable.objects.filter(batchDate__year=year, batchDate__month=month)
+        else:
+            counsellor_info_list = CounsellorInfo.objects.all()
+            final_table_data = FinalTable.objects.all()
+
+        # Initialize aggregated data structure
         aggregated_data = defaultdict(lambda: {
             'sumOfNumberOfFbMessages': 0,
             'sumOfNumberOfFbAdmission': 0,
@@ -171,102 +234,49 @@ def DataFilter(request):
             'socialMedia': 0,
             'sumOfFbExpense': 0,
             'sumOfWebExpense': 0,
-            
         })
 
+        # Aggregate data for each counsellor_info
         for counsellor_info in counsellor_info_list:
             batch_date = counsellor_info.batchDate
-            aggregated_data[batch_date]['sumOfNumberOfFbMessages'] += counsellor_info.numberOfFbMessages
-            aggregated_data[batch_date]['sumOfNumberOfFbAdmission'] += counsellor_info.numberOfFbAdmission
-            aggregated_data[batch_date]['sumOfNumberOfWebMessages'] += counsellor_info.numberOfWebMessages
-            aggregated_data[batch_date]['sumOfNumberOfWebAdmission'] += counsellor_info.numberOfWebAdmission
-            if counsellor_info.socialMedia is not None:
-                aggregated_data[batch_date]['socialMedia'] += counsellor_info.socialMedia
+            data = aggregated_data[batch_date]
+            data['sumOfNumberOfFbMessages'] += counsellor_info.numberOfFbMessages
+            data['sumOfNumberOfFbAdmission'] += counsellor_info.numberOfFbAdmission
+            data['sumOfNumberOfWebMessages'] += counsellor_info.numberOfWebMessages
+            data['sumOfNumberOfWebAdmission'] += counsellor_info.numberOfWebAdmission
+            data['socialMedia'] += counsellor_info.socialMedia if counsellor_info.socialMedia else 0
 
-        final_table_data = FinalTable.objects.all()
-
+        # Aggregate data for FinalTable
         for final_table_entry in final_table_data:
-            batch_date = final_table_entry.batchDate  # Assuming 'date' is the date field in FinalTable
-            aggregated_data[batch_date]['sumOfFbExpense'] = final_table_entry.fbExpense
-            aggregated_data[batch_date]['sumOfWebExpense'] = final_table_entry.webExpense
+            batch_date = final_table_entry.batchDate
+            data = aggregated_data[batch_date]
+            data['sumOfFbExpense'] += final_table_entry.fbExpense if final_table_entry.fbExpense else 0
+            data['sumOfWebExpense'] += final_table_entry.webExpense if final_table_entry.webExpense else 0
 
-        for batch_date, data in aggregated_data.items():
-            sum_fb_messages = data['sumOfNumberOfFbMessages']
-            sum_fb_admission = data['sumOfNumberOfFbAdmission']
-            sum_web_messages = data['sumOfNumberOfWebMessages']
-            sum_web_admission = data['sumOfNumberOfWebAdmission']
-            sum_social_media = data['socialMedia']
-            sum_fb_expense = data['sumOfFbExpense']
-            sum_web_expense = data['sumOfWebExpense']
-            
-            
-            try:
-                try:
-                    admin_info = AdminInfo.objects.get(date=batch_date)
-                except AdminInfo.MultipleObjectsReturned:
-                    admin_info = AdminInfo.objects.filter(date=batch_date).first()
-
-                counsellor_info= CounsellorInfo.objects.filter(batchDate=batch_date)
-                admin_info.sumOfNumberOfFbMessages = sum_fb_messages
-                admin_info.sumOfNumberOfFbAdmission = sum_fb_admission
-                admin_info.sumOfNumberOfWebMessages = sum_web_messages
-                admin_info.sumOfNumberOfWebAdmission = sum_web_admission
-                admin_info.socialMedia = sum_social_media
-                
-                # Calculate FB lead cost and Web lead cost
-                admin_info.fbLeadCost = sum_fb_expense / sum_fb_messages if sum_fb_messages is not None and sum_fb_messages > 0 else 0
-                admin_info.webLeadCost = sum_web_expense / sum_web_messages if sum_web_messages is not None and sum_web_messages > 0 else 0
-
-                # Calculate FB CPA and Web CPA
-                admin_info.fbCPA = sum_fb_expense / sum_fb_admission if sum_fb_admission is not None and sum_fb_admission > 0 else 0
-                admin_info.webCPA = sum_web_expense / sum_web_admission if sum_web_admission is not None and sum_web_admission > 0 else 0
-                admin_info.save()
-                
-            except AdminInfo.MultipleObjectsReturned:
-                admin_infos = AdminInfo.objects.filter(date=batch_date)
-                first_admin_info = admin_infos.first()
-                first_admin_info.sumOfNumberOfFbMessages = sum_fb_messages
-                first_admin_info.sumOfNumberOfFbAdmission = sum_fb_admission
-                first_admin_info.sumOfNumberOfWebMessages = sum_web_messages
-                first_admin_info.sumOfNumberOfWebAdmission = sum_web_admission
-                first_admin_info.socialMedia = sum_social_media
-                first_admin_info.fbLeadCost = sum_fb_expense / sum_fb_messages if sum_fb_messages is not None and sum_fb_messages > 0 else 0
-                first_admin_info.webLeadCost = sum_web_expense / sum_web_messages if sum_web_messages is not None and sum_web_messages > 0 else 0
-                first_admin_info.fbCPA = sum_fb_expense / sum_fb_admission if sum_fb_admission is not None and sum_fb_admission > 0 else 0
-                first_admin_info.webCPA = sum_web_expense / sum_web_admission if sum_web_admission is not None and sum_web_admission > 0 else 0
-                first_admin_info.save()
-                admin_infos.exclude(pk=first_admin_info.pk).delete()
-                
-            except ObjectDoesNotExist:
-                admin_info = AdminInfo.objects.create(
-                    sumOfNumberOfFbMessages=sum_fb_messages,
-                    sumOfNumberOfFbAdmission=sum_fb_admission,
-                    sumOfNumberOfWebMessages=sum_web_messages,
-                    sumOfNumberOfWebAdmission=sum_web_admission,
-                    socialMedia=sum_social_media,
-                    fbLeadCost = sum_fb_expense / sum_fb_messages if sum_fb_messages is not None and sum_fb_messages > 0 else 0,
-                    webLeadCost = sum_web_expense / sum_web_messages if sum_web_messages is not None and sum_web_messages > 0 else 0,
-                    fbCPA = sum_fb_expense / sum_fb_admission if sum_fb_admission is not None and sum_fb_admission > 0 else 0,
-                    webCPA = sum_web_expense / sum_web_admission if sum_web_admission is not None and sum_web_admission > 0 else 0,
-                    date=batch_date
-                )
-                admin_info.save()
-
-        details = AdminInfo.objects.all()
-        final_table_data = FinalTable.objects.all()
-        context = {'details': details, 'final_table_data': final_table_data, 'admin': True}
+        context = {'details': aggregated_data, 'final_table_data': final_table_data, 'admin': True}
         return render(request, 'home/total.html', context)
+
     else:
-        if request.method == 'POST':
-            date = request.POST.get('date')
-            details = CounsellorInfo.objects.filter(user=request.user, batchDate=date)
-            context = {'details': details, 'admin': False}
-            return render(request, 'home/viewer.html', context)
+        # Non-superuser part
+        month = request.GET.get('month')
+        year = request.GET.get('year')
+
+        # Convert month and year to integers and handle invalid inputs
+        try:
+            month = int(month) if month else None
+            year = int(year) if year else None
+        except ValueError:
+            messages.error(request, "Invalid month or year")
+            return redirect('some-view')  # Replace with your actual redirect
+
+        # Filter based on month and year for non-superuser
+        if year and month:
+            details = CounsellorInfo.objects.filter(user=request.user, batchDate__year=year, batchDate__month=month)
         else:
-            user=request.user
-            details = CounsellorInfo.objects.filter(user=user)
-            context = {'details': details, 'admin': False}
-            return render(request, 'home/viewer.html', context)
+            details = CounsellorInfo.objects.filter(user=request.user)
+
+        context = {'details': details, 'admin': False}
+        return render(request, 'home/viewer.html', context)
 
 
 @csrf_protect
@@ -277,48 +287,67 @@ def filter(request):
         admin = False
 
     if request.method == 'POST':
-        date = request.POST.get('date')
+        # Retrieve month and year from POST request
+        month = request.POST.get('month')
+        year = request.POST.get('year')
+
+        # Convert month and year to integers and handle invalid inputs
+        try:
+            month = int(month) if month else None
+            year = int(year) if year else None
+        except ValueError:
+            messages.error(request, "Invalid month or year")
+            return redirect('some-view')  # Replace with your actual redirect
+
+        # Initialize details variable
+        details = None
 
         if admin:
-            if not date:
-                sum_data = AdminInfo.objects.aggregate(
-                    sumOfNumberOfFbMessages=Sum('sumOfNumberOfFbMessages'),
-                    sumOfNumberOfFbAdmission=Sum('sumOfNumberOfFbAdmission'),
-                    sumOfNumberOfWebMessages=Sum('sumOfNumberOfWebMessages'),
-                    sumOfNumberOfWebAdmission=Sum('sumOfNumberOfWebAdmission'),
-                    sumOfSocialMediaMessages=Sum('sumOfSocialMediaMessages'),
-                )
-
-                admin_info = AdminInfo(
-                    sumOfNumberOfFbMessages=sum_data['sumOfNumberOfFbMessages'],
-                    sumOfNumberOfFbAdmission=sum_data['sumOfNumberOfFbAdmission'],
-                    sumOfNumberOfWebMessages=sum_data['sumOfNumberOfWebMessages'],
-                    sumOfNumberOfWebAdmission=sum_data['sumOfNumberOfWebAdmission'],
-                    sumOfSocialMediaMessages=sum_data['sumOfSocialMediaMessages'],
-                )
-                admin_info.save()
-
-            if date:
-                details = AdminInfo.objects.filter(date=date)
-                details = list(details.values()) if details else []
-
-
+            # Filter based on month and year for AdminInfo
+            if year and month:
+                details = AdminInfo.objects.filter(date__year=year, date__month=month)
+            elif year:  # Only year is provided
+                details = AdminInfo.objects.filter(date__year=year)
             else:
-                details = AdminInfo.objects.all()
-                admin_info = None
+                details = AdminInfo.objects.all()  # No specific filter, fetch all
 
-            context = {'details': details, 'admin': admin}
-            print(context)
+            # Aggregate data if needed
+            # Assuming you want to aggregate some data from details
+            # Here's an example of how you might sum up some fields
+            aggregated_data = details.aggregate(
+                TotalFbMessages=Sum('sumOfNumberOfFbMessages'),
+                TotalFbAdmissions=Sum('sumOfNumberOfFbAdmission'),
+                TotalWebMessages=Sum('sumOfNumberOfWebMessages'),
+                TotalWebAdmissions=Sum('sumOfNumberOfWebAdmission'),
+                # Add more fields as needed
+            )
+
+            context = {'details': details, 'aggregated_data': aggregated_data, 'admin': admin}
             return render(request, 'home/total.html', context)
+
         else:
-            if date:
-                details = CounsellorInfo.objects.filter(user=request.user, batchDate=date)
-                details = list(details.values()) if details else []
+            # Filter based on month and year for CounsellorInfo
+            if year and month:
+                details = CounsellorInfo.objects.filter(user=request.user,  batchDate__year=year, batchDate__month=month)
+            elif year:  # Only year is provided
+                details = CounsellorInfo.objects.filter(user=request.user,  batchDate__year=year)
             else:
-                details = CounsellorInfo.objects.filter(user=request.user)
-                details = list(details.values()) if details else []
-            context = {'details': details, 'admin': admin}
+                details = CounsellorInfo.objects.filter(user=request.user)  # No specific filter, fetch all
+
+            # Aggregate data if needed
+            # Assuming you want to aggregate some data from details
+            # Here's an example of how you might sum up some fields
+            aggregated_data = details.aggregate(
+                TotalFbMessages=Sum('numberOfFbMessages'),
+                TotalFbAdmissions=Sum('numberOfFbAdmission'),
+                TotalWebMessages=Sum('numberOfWebMessages'),
+                TotalWebAdmissions=Sum('numberOfWebAdmission'),
+                # Add more fields as needed
+            )
+
+            context = {'details': details, 'aggregated_data': aggregated_data, 'admin': admin}
             return render(request, 'home/viewer.html', context)
+
 
 @csrf_protect
 def batch_detail_view(request):
