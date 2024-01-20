@@ -97,7 +97,8 @@
           <th>Total Fb Admission</th>
           <th>Total Web Messages</th>
           <th>Total Web Admission</th>
-          <th>Total Social Media</th>
+          <th>Total Instagram Messages</th>
+          <th>Total Youtube Messages</th>
           <th>Fb Expense</th>
           <th>Web Expense</th>
           <th>Fb Lead Cost</th>
@@ -123,7 +124,8 @@
             <td>{{ detail.sumOfNumberOfFbAdmission }}</td>
             <td>{{ detail.sumOfNumberOfWebMessages }}</td>
             <td>{{ detail.sumOfNumberOfWebAdmission }}</td>
-            <td>{{ detail.socialMedia }}</td>
+            <td>{{ detail.sumofinstamsg }}</td>
+            <td>{{ detail.sumofyoutubemsg }}</td>
             <td>
               {% for final_data in final_table_data %}
                   {% if final_data.batchDate == detail.date %}
