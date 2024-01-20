@@ -93,7 +93,8 @@ def DataAdder(request):
         fb_admission = request.POST.get('numberOfFbAdmission')
         web_messages = request.POST.get('numberOfWebMessages')
         web_admission = request.POST.get('numberOfWebAdmission')
-        social_media = request.POST.get('socialMedia')
+        numberofinstamsg = request.POST.get('numberofinstamsg')
+        numberofyoutubemsg = request.POST.get('numberofyoutubemsg')
 
         # Convert month and year to integers and handle invalid inputs
         try:
@@ -118,7 +119,9 @@ def DataAdder(request):
                 numberOfFbAdmission=fb_admission,
                 numberOfWebMessages=web_messages,
                 numberOfWebAdmission=web_admission,
-                socialMedia=social_media,
+                numberofinstamsg=numberofinstamsg,
+                numberofyoutubemsg=numberofyoutubemsg,
+
             )
             
             details.save()
@@ -230,7 +233,8 @@ def DataFilter(request):
             'sumOfNumberOfFbAdmission': 0,
             'sumOfNumberOfWebMessages': 0,
             'sumOfNumberOfWebAdmission': 0,
-            'socialMedia': 0,
+            'sumofinstamsg': 0,
+            'sumofyoutubemsg':0,
             'sumOfFbExpense': 0,
             'sumOfWebExpense': 0,
         })
@@ -243,7 +247,8 @@ def DataFilter(request):
             data['sumOfNumberOfFbAdmission'] += counsellor_info.numberOfFbAdmission
             data['sumOfNumberOfWebMessages'] += counsellor_info.numberOfWebMessages
             data['sumOfNumberOfWebAdmission'] += counsellor_info.numberOfWebAdmission
-            data['socialMedia'] += counsellor_info.socialMedia if counsellor_info.socialMedia else 0
+            data['sumofinstamsg'] += counsellor_info.numberofinstamsg if counsellor_info.numberofinstamsg else 0
+            data['sumofyoutubemsg'] += counsellor_info.numberofyoutubemsg if counsellor_info.numberofyoutubemsg else 0
 
         # Aggregate data for FinalTable
         for final_table_entry in final_table_data:
@@ -318,6 +323,8 @@ def filter(request):
                 TotalFbAdmissions=Sum('sumOfNumberOfFbAdmission'),
                 TotalWebMessages=Sum('sumOfNumberOfWebMessages'),
                 TotalWebAdmissions=Sum('sumOfNumberOfWebAdmission'),
+                TotalInstaMessages=Sum('sumofinstamsg'),
+                TotalYoutubeMessages=Sum('sumofyoutubemsg')
                 # Add more fields as needed
             )
 
@@ -341,6 +348,8 @@ def filter(request):
                 TotalFbAdmissions=Sum('numberOfFbAdmission'),
                 TotalWebMessages=Sum('numberOfWebMessages'),
                 TotalWebAdmissions=Sum('numberOfWebAdmission'),
+                TotalInstaMessages=Sum('numberofinstamsg'),
+                TotalYoutubeMessages=Sum('numberofyoutubemsg')
                 # Add more fields as needed
             )
 
