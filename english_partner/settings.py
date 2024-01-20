@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'counsellorApp'
+    'value'
 ]
 
 MIDDLEWARE = [
@@ -54,7 +54,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
 ]
 
-ROOT_URLCONF = 'englishPartner.urls'
+ROOT_URLCONF = 'english_partner.urls'
 
 TEMPLATES = [
     {
@@ -72,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'englishPartner.wsgi.application'
+WSGI_APPLICATION = 'english_partner.wsgi.application'
 
 
 # Database
@@ -105,7 +105,7 @@ import dj_database_url
 # Use the external database URL provided
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://counsellor_application_user:wTJpQQQLA27S7UJgsaviOy5n0SOivJiB@dpg-cl3l1l2uuipc738eg6b0-a.oregon-postgres.render.com/counsellor_application'
+        default='postgres://hi_6fc9_user:T14LrKSP0DKcpKl7wvc10IvzMLDRke1D@dpg-cml9g06d3nmc73cmprbg-a.oregon-postgres.render.com/hi_6fc9'
     )
 }
 

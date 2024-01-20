@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import CreateUserForm
+from .form import CreateUserForm
 from .models import CounsellorInfo,AdminInfo,FinalTable
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Sum
@@ -14,7 +14,6 @@ from datetime import datetime
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
 import time
-# Create your views here.
 
 @login_required(login_url='login')
 @csrf_protect

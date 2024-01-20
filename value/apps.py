@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class CounsellorappConfig(AppConfig):
+class ValueConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'counsellorApp'
+    name = 'value'
