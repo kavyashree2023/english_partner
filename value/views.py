@@ -330,7 +330,7 @@ def filter(request):
             month = int(month) if month else None
         except ValueError:
             messages.error(request, "Invalid month or year")
-            return redirect('some-view')  # Replace with your actual redirect
+            return redirect('home')  # Replace with your actual redirect
 
         # Initialize details variable
         details = None
@@ -395,7 +395,7 @@ def batch_detail_view(request):
         # Check if batch_date_str is not None
         if batch_date_str is None:
             messages.error(request, "Invalid batch date")
-            return redirect('some-view')  # Replace with your actual redirect
+            return redirect('home')  # Replace with your actual redirect
 
         # Convert batch_date_str to a datetime object
         try:
@@ -440,4 +440,4 @@ def batch_detail_view(request):
         return render(request, 'home/main.html', context)
 
     # Handle the case when the request method is not POST
-    return redirect('some-view')  # Replace with your actual redirect
+    return redirect('home')  # Replace with your actual redirect
