@@ -102,7 +102,7 @@ def DataAdder(request):
             year = int(year) if year else None
         except ValueError:
             messages.error(request, "Invalid month or year")
-            return redirect('some-view')  # Replace with your actual redirect
+            return redirect('home') 
 
         # Assuming you want to create or update the CounsellorInfo object based on the month and year
         if month and year:
@@ -136,7 +136,7 @@ def DataAdder(request):
         else:
             # Handle cases where month or year is not provided
             messages.error(request, "Month and year are required")
-            return redirect('some-view')  # Replace with your actual redirect
+            return redirect('home')
 
     else:
         user = request.user
@@ -309,8 +309,7 @@ def DataFilter(request):
             context = {'details': details, 'admin': False}
             return render(request, 'home/viewer.html', context)
         else:
-            user=request.user
-            details = CounsellorInfo.objects.filter(user=user)
+            details = CounsellorInfo.objects.all()
             context = {'details': details, 'admin': False}
             return render(request, 'home/viewer.html', context)
 
