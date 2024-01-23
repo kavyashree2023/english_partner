@@ -86,8 +86,7 @@ def logoutUser(request):
 def DataAdder(request):
     if request.method == 'POST':
         # Retrieve month and year from POST request
-        month = request.POST.get('month')
-        year = request.POST.get('year')
+        batch_date=request.POST.get('batchDate')
         counsellor_name = request.POST.get('counsellorName')
         fb_messages = request.POST.get('numberOfFbMessages')
         fb_admission = request.POST.get('numberOfFbAdmission')
@@ -96,22 +95,8 @@ def DataAdder(request):
         numberofinstamsg = request.POST.get('numberofinstamsg')
         numberofyoutubemsg = request.POST.get('numberofyoutubemsg')
 
-        # Convert month and year to integers and handle invalid inputs
-        try:
-            month = int(month) if month else None
-            year = int(year) if year else None
-        except ValueError:
-            messages.error(request, "Invalid month or year")
-            return redirect('home') 
-
-        # Assuming you want to create or update the CounsellorInfo object based on the month and year
-        if month and year:
-            # Construct a date object from year and month, assuming day is the first of the month
-            # You might need to adjust this based on how your application expects the date
-            batch_date = datetime.date(year, month, 1)
-
             # Create CounsellorInfo object
-            details = CounsellorInfo.objects.create(
+        details = CounsellorInfo.objects.create(
                 user=User.objects.get(username=request.user.username),
                 batchDate=batch_date,
                 counsellorName=counsellor_name,
@@ -124,19 +109,14 @@ def DataAdder(request):
 
             )
             
-            details.save()
+        details.save()
             
-            context = {
+        context = {
                 'data_added': True
             }
-            time.sleep(10)  # Consider if this sleep is necessary for your application
+        time.sleep(10)  # Consider if this sleep is necessary for your application
 
-            return render(request, 'home/home.html', context)
-
-        else:
-            # Handle cases where month or year is not provided
-            messages.error(request, "Month and year are required")
-            return redirect('home')
+        return render(request, 'home/home.html', context)
 
     else:
         user = request.user
@@ -150,27 +130,13 @@ def DataAdder(request):
 def DataAdm(request):
     if request.method == 'POST':
         # Retrieve month and year from POST request
-        month = request.POST.get('month')
-        year = request.POST.get('year')
+        batchDate=request.POST.get('batchDate')
         FbExpense = request.POST.get('fbExpense')
         WebExpense = request.POST.get('webExpense')
 
-        # Convert month and year to integers and handle invalid inputs
-        try:
-            month = int(month) if month else None
-            year = int(year) if year else None
-        except ValueError:
-            messages.error(request, "Invalid month or year")
-            return redirect('loginPage')  # Replace with your actual redirect
-
-        # Assuming you want to create or update the FinalTable object based on the month and year
-        if month and year:
-            # Construct a date object from year and month, assuming day is the first of the month
-            # You might need to adjust this based on how your application expects the date
-            batchDate = datetime.date(year, month, 1)
 
             # Create or update the FinalTable object
-            details, created = FinalTable.objects.update_or_create(
+        details, created = FinalTable.objects.update_or_create(
                 batchDate=batchDate,
                 defaults={
                     'fbExpense': FbExpense,
@@ -179,18 +145,13 @@ def DataAdm(request):
             )
 
             # Save if it's a new object
-            if created:
+        if created:
                 details.save()
 
-            context = {
+        context = {
                 'data_added': True
             }
-            return render(request, 'home/cdc.html', context)
-
-        else:
-            # Handle cases where month or year is not provided
-            messages.error(request, "Month and year are required")
-            return redirect('loginPage')  # Replace with your actual redirect
+        return render(request, 'home/cdc.html', context)
 
     else:
         # Handle GET or other methods as needed
@@ -309,7 +270,7 @@ def DataFilter(request):
             context = {'details': details, 'admin': False}
             return render(request, 'home/viewer.html', context)
         else:
-            details = CounsellorInfo.objects.all()
+            details = CounsellorInfo.objects.filter(user=request.user,)
             context = {'details': details, 'admin': False}
             return render(request, 'home/viewer.html', context)
 
@@ -369,9 +330,6 @@ def filter(request):
             else:
                 details = CounsellorInfo.objects.filter(user=request.user)  # No specific filter, fetch all
 
-            # Aggregate data if needed
-            # Assuming you want to aggregate some data from details
-            # Here's an example of how you might sum up some fields
             aggregated_data = details.aggregate(
                 TotalFbMessages=Sum('numberOfFbMessages'),
                 TotalFbAdmissions=Sum('numberOfFbAdmission'),
@@ -379,7 +337,6 @@ def filter(request):
                 TotalWebAdmissions=Sum('numberOfWebAdmission'),
                 TotalInstaMessages=Sum('numberofinstamsg'),
                 TotalYoutubeMessages=Sum('numberofyoutubemsg')
-                # Add more fields as needed
             )
 
             context = {'details': details, 'aggregated_data': aggregated_data, 'admin': admin}
