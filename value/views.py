@@ -93,7 +93,9 @@ def DataAdder(request):
         web_messages = request.POST.get('numberOfWebMessages')
         web_admission = request.POST.get('numberOfWebAdmission')
         numberofinstamsg = request.POST.get('numberofinstamsg')
+        numberofinstaadm = request.POST.get('numberofinstadm')
         numberofyoutubemsg = request.POST.get('numberofyoutubemsg')
+        numberofyoutubeadm = request.POST.get('numberofyoutubeadm')
 
             # Create CounsellorInfo object
         details = CounsellorInfo.objects.create(
@@ -105,7 +107,9 @@ def DataAdder(request):
                 numberOfWebMessages=web_messages,
                 numberOfWebAdmission=web_admission,
                 numberofinstamsg=numberofinstamsg,
+                numberofinstaadm=numberofinstaadm,
                 numberofyoutubemsg=numberofyoutubemsg,
+                numberofyoutubeadm=numberofyoutubeadm,
 
             )
             
@@ -176,7 +180,9 @@ def DataFilter(request):
             'sumOfNumberOfWebMessages': 0,
             'sumOfNumberOfWebAdmission': 0,
             'sumofinstamsg': 0,
+            'sumofinstaadm': 0,
             'sumofyoutubemsg': 0,
+            'sumofyoutubeadm': 0,
             'sumOfFbExpense': 0,
             'sumOfWebExpense': 0,
 
@@ -188,7 +194,9 @@ def DataFilter(request):
             aggregated_data[batch_date]['sumOfNumberOfWebMessages'] += counsellor_info.numberOfWebMessages
             aggregated_data[batch_date]['sumOfNumberOfWebAdmission'] += counsellor_info.numberOfWebAdmission
             aggregated_data[batch_date]['sumofinstamsg'] += counsellor_info.numberofinstamsg
+            aggregated_data[batch_date]['sumofinstaadm'] += counsellor_info.numberofinstaadm
             aggregated_data[batch_date]['sumofyoutubemsg'] += counsellor_info.numberofyoutubemsg
+            aggregated_data[batch_date]['sumofyoutubeadm'] += counsellor_info.numberofyoutubeadm
 
         final_table_data = FinalTable.objects.all()
 
@@ -202,7 +210,9 @@ def DataFilter(request):
             sum_web_messages = data['sumOfNumberOfWebMessages']
             sum_web_admission = data['sumOfNumberOfWebAdmission']
             sum_insta_messages = data['sumofinstamsg']
+            sum_insta_admissions = data['sumofinstaadm']
             sum_youtube_messages = data['sumofyoutubemsg']
+            sum_youtube_admissions = data['sumofyoutubeadm']
             sum_fb_expense = data['sumOfFbExpense']
             sum_web_expense = data['sumOfWebExpense']
 
@@ -218,7 +228,9 @@ def DataFilter(request):
                 admin_info.sumOfNumberOfWebMessages = sum_web_messages
                 admin_info.sumOfNumberOfWebAdmission = sum_web_admission
                 admin_info.sumofinstamsg = sum_insta_messages
+                admin_info.sumofinstaadm = sum_insta_admissions
                 admin_info.sumofyoutubemsg = sum_youtube_messages
+                admin_info.sumofyoutubeadm = sum_youtube_admissions
 
                 # Calculate FB lead cost and Web lead cost
                 admin_info.fbLeadCost = sum_fb_expense / sum_fb_messages if sum_fb_messages is not None and sum_fb_messages > 0 else 0
@@ -236,7 +248,9 @@ def DataFilter(request):
                 first_admin_info.sumOfNumberOfWebMessages = sum_web_messages
                 first_admin_info.sumOfNumberOfWebAdmission = sum_web_admission
                 first_admin_info.sumofinstamsg = sum_insta_messages
+                first_admin_info.sumofinstaadm = sum_insta_admissions
                 first_admin_info.sumofyoutubemsg = sum_youtube_messages
+                first_admin_info.sumofyoutubeadm = sum_youtube_admissions
                 first_admin_info.fbLeadCost = sum_fb_expense / sum_fb_messages if sum_fb_messages is not None and sum_fb_messages > 0 else 0
                 first_admin_info.webLeadCost = sum_web_expense / sum_web_messages if sum_web_messages is not None and sum_web_messages > 0 else 0
                 first_admin_info.fbCPA = sum_fb_expense / sum_fb_admission if sum_fb_admission is not None and sum_fb_admission > 0 else 0
@@ -251,7 +265,9 @@ def DataFilter(request):
                     sumOfNumberOfWebMessages=sum_web_messages,
                     sumOfNumberOfWebAdmission=sum_web_admission,
                     sumofinstamsg=sum_insta_messages,
+                    sumofinstaadm=sum_insta_admissions,
                     sumofyoutubemsg=sum_youtube_messages,
+                    sumofyoutubeadm=sum_youtube_admissions,
                     fbLeadCost = sum_fb_expense / sum_fb_messages if sum_fb_messages is not None and sum_fb_messages > 0 else 0,
                     webLeadCost = sum_web_expense / sum_web_messages if sum_web_messages is not None and sum_web_messages > 0 else 0,
                     fbCPA = sum_fb_expense / sum_fb_admission if sum_fb_admission is not None and sum_fb_admission > 0 else 0,
@@ -314,7 +330,9 @@ def filter(request):
                 TotalWebMessages=Sum('sumOfNumberOfWebMessages'),
                 TotalWebAdmissions=Sum('sumOfNumberOfWebAdmission'),
                 TotalInstaMessages=Sum('sumofinstamsg'),
-                TotalYoutubeMessages=Sum('sumofyoutubemsg')
+                TotalInstaAdmissions=Sum('sumofinstaadm'),
+                TotalYoutubeMessages=Sum('sumofyoutubemsg'),
+                TotalYoutubeAdmissions=Sum('sumofyoutubeadm'),
                 # Add more fields as needed
             )
 
@@ -336,7 +354,9 @@ def filter(request):
                 TotalWebMessages=Sum('numberOfWebMessages'),
                 TotalWebAdmissions=Sum('numberOfWebAdmission'),
                 TotalInstaMessages=Sum('numberofinstamsg'),
-                TotalYoutubeMessages=Sum('numberofyoutubemsg')
+                TotalInstaAdmissions=Sum('numberofinstaadm'),
+                TotalYoutubeMessages=Sum('numberofyoutubemsg'),
+                TotalYoutubeAdmissions=Sum('numberofyoutubeadm'),
             )
 
             context = {'details': details, 'aggregated_data': aggregated_data, 'admin': admin}

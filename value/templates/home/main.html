@@ -77,7 +77,13 @@
             <p>Total Instagram Messages: {{ details.sumofinstamsg}} </p>
           </th>
           <th>
+            <p>Total Instagram Admission: {{ details.sumOfinstaadm }}</p> 
+          </th>
+          <th>
             <p>Total Youtube Messages: {{details.sumofyoutubemsg}}</p>
+          </th>
+          <th>
+            <p>Total Youtube Admission: {{ details.sumOfyoutubeadm }}</p> 
           </th>
           <th>
             <p>Lead Form CPA: {{ details.fbCPA }}</p> 
@@ -110,7 +116,9 @@
           <th>No. of Wb Messages</th>
           <th>No. of Wb Admission</th>
           <th>No. of Instagram Messages</th>
+          <th>No. of Instagram Admissions</th>
           <th>No. of Youtube Messages</th>
+          <th>No. of Youtube Admissions</th>
           <th>Amount spent</th>
           <th>Returns</th>
          
@@ -126,7 +134,9 @@
             <td>{{ detail.numberOfWebMessages }}</td>
             <td>{{ detail.numberOfWebAdmission }}</td>
             <td>{{ detail.numberofinstamsg }}</td>
+            <td>{{ detail.numberofinstaadm}}</td>
             <td>{{ detail.numberofyoutubemsg}} </td>
+            <td>{{ detail.numberofyoutubeadm}}</td>
             <td>{{ detail.amount_spent }}</td>
             <td>{{ detail.returns }}</td>
       </tr>
