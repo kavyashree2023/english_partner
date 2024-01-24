@@ -62,10 +62,10 @@
         <thead class="bg-light">
         <tr>
           <th>
-            <p>Total Fb Msgs: {{ details.sumOfNumberOfFbMessages }}</p>
+            <p>Total Lead Form Msgs: {{ details.sumOfNumberOfFbMessages }}</p>
           </th>
           <th>
-            <p>Total Fb Admission: {{ details.sumOfNumberOfFbAdmission }}</p>
+            <p>Total Lead Form Admission: {{ details.sumOfNumberOfFbAdmission }}</p>
           </th>
           <th>
             <p>Total Web Msgs: {{ details.sumOfNumberOfWebMessages }}</p>
@@ -73,18 +73,20 @@
           <th>
             <p>Total Web Admission: {{ details.sumOfNumberOfWebAdmission }}</p> 
           </th>
-          <!-- <th>
-            <p>Total Social Media: {{ details.SumOfSocialMedia }}</p>
-            
-          </th> -->
           <th>
-            <p>FB CPA: {{ details.fbCPA }}</p> 
+            <p>Total Instagram Messages: {{ details.sumofinstamsg}} </p>
+          </th>
+          <th>
+            <p>Total Youtube Messages: {{details.sumofyoutubemsg}}</p>
+          </th>
+          <th>
+            <p>Lead Form CPA: {{ details.fbCPA }}</p> 
           </th>
           <th>
             <p>WB CPA: {{ details.webCPA }}</p>
           </th>
           <th>
-            <p>FB Lead Cost: {{ details.fbLeadCost}}</p>  
+            <p>Lead Form Lead Cost: {{ details.fbLeadCost}}</p>  
           </th>
           <th>
             <p>Web Lead Cost: {{ details.webLeadCost}}</p>
@@ -103,11 +105,12 @@
       <thead class="bg-light">
         <tr>
           <th>Counsellor Name</th>
-          <th>No. of Fb Messages</th>
-          <th>No. of Fb Admission</th>
+          <th>No. of Lead Form Messages</th>
+          <th>No. of Lead Form Admission</th>
           <th>No. of Wb Messages</th>
           <th>No. of Wb Admission</th>
-          <th>Social Media</th>
+          <th>No. of Instagram Messages</th>
+          <th>No. of Youtube Messages</th>
           <th>Amount spent</th>
           <th>Returns</th>
          
@@ -122,7 +125,8 @@
             <td>{{ detail.numberOfFbAdmission }}</td>
             <td>{{ detail.numberOfWebMessages }}</td>
             <td>{{ detail.numberOfWebAdmission }}</td>
-            <td>{{ detail.socialMedia }}</td>
+            <td>{{ detail.numberofinstamsg }}</td>
+            <td>{{ detail.numberofyoutubemsg}} </td>
             <td>{{ detail.amount_spent }}</td>
             <td>{{ detail.returns }}</td>
       </tr>
