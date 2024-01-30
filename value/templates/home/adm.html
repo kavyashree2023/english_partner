@@ -82,7 +82,6 @@
 {% else %}
 
 <html>
-
 <head>
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
@@ -97,7 +96,7 @@
             border-bottom-left-radius: 10% 50%;
             border-top-left-radius: 10% 50%;
             background-color: #f8f9fa;
-            /*  i want the padding top and bottom to be equal */
+            /* i want the padding top and bottom to be equal */
             padding: 1.5rem 0rem;
         }
 
@@ -153,10 +152,11 @@
                 <div class="card pb-4">
                     <div class="card-body mt-0 mx-5">
                         <div class="text-center mb-3 pb-2 mt-3">
-                            <h4 style="color: #495057;">Fill up the details !</h4>
+                            <h4 style="color: #000000;">Fill up the details !</h4><br>
+                            <p>Note: If you've no count for a particular section , kindly fill it up as 0 .</p>
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <img  width="30%" height="30%" src="static\images\slider\fillup.jpg"><br><br>
+                       
                         <form class="mb-0" action="{% url 'adm' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
 
@@ -186,7 +186,23 @@
                                     </div>
                                 </div>
                                 <div class="col">
-                                   
+                                    <p>Instagram Expense</p>
+                                    <div class="form-outline">
+                                        <input type="number" class="form-control input-custom" name="instaExpense"   requiredcomment />
+                                        <!-- <label class="form-label" for="form9Example2">Branch</label> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <p>Youtube Expense</p>
+                                    <div class="form-outline">
+                                        <input type="number" class="form-control input-custom" name="youtubeExpense"   requiredcomment />
+                                        <!-- <label class="form-label" for="form9Example1">Degree</label> -->
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    
                                     <div class="form-outline">
                                         
                                         <!-- <label class="form-label" for="form9Example2">Branch</label> -->

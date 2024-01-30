@@ -137,6 +137,8 @@ def DataAdm(request):
         batchDate=request.POST.get('batchDate')
         FbExpense = request.POST.get('fbExpense')
         WebExpense = request.POST.get('webExpense')
+        InstaExpense = request.POST.get('instaExpense')
+        YoutubeExpense = request.POST.get('youtubeExpense')
 
 
             # Create or update the FinalTable object
@@ -145,6 +147,8 @@ def DataAdm(request):
                 defaults={
                     'fbExpense': FbExpense,
                     'webExpense': WebExpense,
+                    'instaExpense': InstaExpense,
+                    'youtubeExpense': YoutubeExpense,
                 }
             )
 
@@ -185,6 +189,7 @@ def DataFilter(request):
             'sumofyoutubeadm': 0,
             'sumOfFbExpense': 0,
             'sumOfWebExpense': 0,
+            
 
         })
         for counsellor_info in counsellor_info_list:
@@ -204,6 +209,7 @@ def DataFilter(request):
             batch_date = final_table_entry.batchDate  # Assuming 'date' is the date field in FinalTable
             aggregated_data[batch_date]['sumOfFbExpense'] = final_table_entry.fbExpense
             aggregated_data[batch_date]['sumOfWebExpense'] = final_table_entry.webExpense
+            
         for batch_date, data in aggregated_data.items():
             sum_fb_messages = data['sumOfNumberOfFbMessages']
             sum_fb_admission = data['sumOfNumberOfFbAdmission']
@@ -215,6 +221,7 @@ def DataFilter(request):
             sum_youtube_admissions = data['sumofyoutubeadm']
             sum_fb_expense = data['sumOfFbExpense']
             sum_web_expense = data['sumOfWebExpense']
+            
 
             
             try:

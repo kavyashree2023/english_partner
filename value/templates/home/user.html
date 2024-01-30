@@ -151,7 +151,10 @@
         popup = () => {
             alert("Data has been uploaded successfully!");
         }
+
+        
     </script>
+  
 </head>
 
 <body class="gradient-custom">
@@ -168,12 +171,14 @@
                 <div class="card pb-4">
                     <div class="card-body mt-0 mx-5">
                         <div class="text-center mb-3 pb-2 mt-3">
-                            <h4 style="color: #495057 ;">Fill up the details !</h4>
+                            <h4 style="color: #000000;">Fill up the details !</h4><br>
+                            <p>Note: If you've no count for a particular section , kindly fill it up as 0 .</p>
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                       <br>
 
-                        <form class="mb-0" action="/user" method="post" enctype="multipart/form-data">
+                      <form class="mb-0" action="/user" method="post" enctype="multipart/form-data">
+                            
                             {% csrf_token %}
 
                             <div class="row mb-4">
