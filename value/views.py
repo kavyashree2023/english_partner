@@ -18,7 +18,12 @@ import time
 @login_required(login_url='login')
 @csrf_protect
 def home(request):
-    return render(request, 'home/home.html')
+    user = request.user
+    context = {
+            'data_added': False,
+            'counsellor_name': user.username  # Pass the current user's name to the context
+        }
+    return render(request, 'home/home.html',context)
 
 @login_required(login_url='login')
 @csrf_protect
@@ -199,7 +204,7 @@ def DataFilter(request):
             aggregated_data[batch_date]['sumOfNumberOfWebMessages'] += counsellor_info.numberOfWebMessages
             aggregated_data[batch_date]['sumOfNumberOfWebAdmission'] += counsellor_info.numberOfWebAdmission
             aggregated_data[batch_date]['sumofinstamsg'] += counsellor_info.numberofinstamsg
-            aggregated_data[batch_date]['sumofinstaadm'] += counsellor_info.numberofinstaadm
+            aggregated_data[batch_date]['sumofinstaadm'] += counsellor_info.numberofinstaadm or 0
             aggregated_data[batch_date]['sumofyoutubemsg'] += counsellor_info.numberofyoutubemsg
             aggregated_data[batch_date]['sumofyoutubeadm'] += counsellor_info.numberofyoutubeadm
 
@@ -209,6 +214,9 @@ def DataFilter(request):
             batch_date = final_table_entry.batchDate  # Assuming 'date' is the date field in FinalTable
             aggregated_data[batch_date]['sumOfFbExpense'] = final_table_entry.fbExpense
             aggregated_data[batch_date]['sumOfWebExpense'] = final_table_entry.webExpense
+            aggregated_data[batch_date]['sumofinstaadm']=final_table_entry.instaExpense
+            aggregated_data[batch_date]['sumofyoutubeadm']=final_table_entry.youtubeExpense
+
             
         for batch_date, data in aggregated_data.items():
             sum_fb_messages = data['sumOfNumberOfFbMessages']
@@ -387,7 +395,7 @@ def batch_detail_view(request):
             batch_date = datetime.strptime(batch_date_str, "%b. %d, %Y")
         except ValueError:
             messages.error(request, "Invalid batch date format")
-            return redirect('some-view')  # Replace with your actual redirect
+            return redirect('home')  # Replace with your actual redirect
 
         # Continue with the rest of your code
         year = batch_date.year

@@ -37,7 +37,7 @@ class FinalTable(models.Model):
     fbExpense = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     webExpense = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     instaExpense = models.DecimalField(max_digits=10, decimal_places=2, null=True)
-    youtubeExpense = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    youtubeExpense = models.DecimalField(max_digits=10, decimal_places=2, null=True)    
     counsellor_info = models.ForeignKey(CounsellorInfo, on_delete=models.CASCADE, null=True)
 
     
