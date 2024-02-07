@@ -98,7 +98,7 @@ def DataAdder(request):
         web_messages = request.POST.get('numberOfWebMessages')
         web_admission = request.POST.get('numberOfWebAdmission')
         numberofinstamsg = request.POST.get('numberofinstamsg')
-        numberofinstaadm = request.POST.get('numberofinstadm')
+        numberofinstaadm = request.POST.get('numberofinstaadm')
         numberofyoutubemsg = request.POST.get('numberofyoutubemsg')
         numberofyoutubeadm = request.POST.get('numberofyoutubeadm')
 
