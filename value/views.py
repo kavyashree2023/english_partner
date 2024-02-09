@@ -377,7 +377,6 @@ def filter(request):
             context = {'details': details, 'aggregated_data': aggregated_data, 'admin': admin}
             return render(request, 'home/viewer.html', context)
 
-
 @csrf_protect
 def batch_detail_view(request):
     if request.method == 'POST':
